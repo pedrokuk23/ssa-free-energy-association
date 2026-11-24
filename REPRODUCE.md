@@ -9,15 +9,15 @@ below was checked against these files.
 | Item | Content | Script | Summary file |
 |---|---|---|---|
 | Table 1 | Correspondence of metrics (analytical) | — | — |
-| Fig. 1 | E4, densities, AUC and evidence underestimation | `figures/make_figures.py` (`fig_nonlinear`) | `e6n_summary.json` |
+| Fig. 1 | E4, predicted density against single-Gaussian ellipses | `figures/make_figures.py` (`fig_nonlinear`) | recomputed from the model (fixed seed) |
 | Table E4 | E4, AUC and evidence error | `e6n_numeric.py`, `e4_is.py`, `e4_is_005.py` | `e6n_summary.json`, `e4_is_summary.json`, `e4_is_summary_005.json` |
 | Table E5 | E5 Study A, main metrics | `e10_analyze.py` | `e10_summary.json` |
-| Fig. 2 | E5 Study A, learned prior | `figures/make_figures.py` (`fig_e10`) | `e10_summary.json`, `data/maneuver_labels_v0.3.json` |
+| Fig. 2 | E5 Study A: maneuver magnitudes, paired differences, calibration by prior, largest maneuvers | `figures/make_figures.py` (`fig_e10`) | `e10_summary.json`, `data/maneuver_labels_v0.3.json` |
 | Table E5b | E5 Study B | `e11_analyze.py` | `e11_summary.json` |
 | Table paired2 | E5 Study B, pre-specified tests | `e11_analyze.py` | `e11_summary.json` |
 | Table chrono | Plan chronology | — | `PREREG_*.md`, `PREREG_E6c.freeze.json` |
 | Table E6c | E6c rates by method, UCT type and regime | `e17K_analyze.py`, `e17K_table.py`, `e17K2_analyze.py` (CTRLp, IMM) | `e17K_summary.json`, output of `e17K_table.py`, `e17K2_summary.json` |
-| Fig. 3 | E6c forest plot | `figures/make_figures.py` (`fig_forest_e6c`) | `e17K_summary.json`, `e17sel_*.json` |
+| Fig. 3 | E6c forest plot | `figures/forest_se.py`, `figures/make_figures.py` (`fig_forest_e6c`) | `e17K_summary.json`, `e17sel_*.json`, `figures/forest_se.json` |
 
 ## Supplement
 
@@ -28,7 +28,7 @@ below was checked against these files.
 | Table prior | E5 prior ablation and recalibration | `e10_analyze.py`, `e14_recal.py` | `e10_summary.json`, `e14_recal.json` |
 | Table s3imm, S3 text | Study B with CTRLp/IMM; IPLF-5; OD catalog | `e23_analyze.py`, `e19_pd_analyze.py` | `e23_pdx.json`, `e23_pdit5.json`, `e23_od2.json`, `e19_pd_summary.json` |
 | Tables e6, paired3 | E6a/E6b pooled and primary tests | `e12_analyze.py`, `e12_pool.py` | `e12_summary.json`, `e12_summary_seed11.json`, `e12_summary_seedpool.json` |
-| Fig. S1 | E6s forest plot | `figures/make_figures.py` (`fig_forest_e6s`) | `e12K_summary.json` |
+| Fig. S1 | E6s forest plot | `figures/forest_se.py`, `figures/make_figures.py` (`fig_forest_e6s`) | `e12K_summary.json`, `figures/forest_se.json` |
 | Table s5meta, S5 text | E6c sensitivity, offset, Δv, calibration, real confusers, all eligible events | `e20_p1.py`, `e25_k3_analyze.py`, `e14_recal.py` | `e20_p1.json`, `e25_summary.json`, `e21_conf_*.json` |
 | S6 | Evidence decomposition and independent reference | `e24_decomp.py` | `e24_full_s0.5.json`, `e24_tracklet_s0.5.json` |
 
@@ -38,3 +38,16 @@ The `run*.sh` files are the exact command lines used on the original machine (Ub
 Numba CUDA, one RTX 5090, 8 CPU cores); paths assume the package root as working directory and a virtual
 environment in `~/venv`. Approximate GPU times: E5 Study A or B about one day each, E6c scoring about one day,
 E6c re-scoring (`run19.sh`, `run20.sh`) about 1–1.5 days. All random draws are seeded by study, event and draw.
+
+## Commands for the summaries that need arguments
+
+    python e23_analyze.py 'e11_rows_pdx_*_seed31_*_x.json' e23_pdx.json
+    python e23_analyze.py 'e11_rows_pdit5_*_seed31_*_x.json' e23_pdit5.json
+    python e23_analyze.py 'e11_rows_od2_*_seed41_*.json' e23_od2.json
+    SEED=7 python e12_analyze.py      # writes e12_summary_seed7.json (= e12_summary.json, E6a)
+    SEED=11 python e12_analyze.py     # E6b
+    python e12_pool.py; SEED=pool python e12_analyze.py
+
+`e20_p1.py` and `e25_k3_analyze.py` also write the plain-text logs `c121.txt` and `c125.txt`. The file
+`e17K_e17_events_gnss_full_s0.05_seed13_c0of31.json` is the three-event software test run before the E6c freeze
+(Amendment 1); it is not used by any analysis.

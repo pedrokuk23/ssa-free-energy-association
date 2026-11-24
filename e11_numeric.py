@@ -46,6 +46,8 @@ def wrap(r):
         r[..., 4] = (r[..., 4] + np.pi) % (2 * np.pi) - np.pi
     return r
 
+CIRC_MEAN = os.environ.get("CIRC_MEAN", "1") == "1"
+EQ_SQRT = os.environ.get("EQ_SQRT", "1") == "1"
 EXTRA = os.environ.get("EXTRA", "0") == "1"
 EXTRA2 = os.environ.get("EXTRA2", "0") == "1"   # revisão: IMM com a priori aprendida (IMMl: 2 modos; IMMd: 1+3 modos por direção)
 SIGNED = os.environ.get("SIGNED", "0") == "1"; PSGN = float(os.environ.get("PSGN", "0.9"))
@@ -112,6 +114,9 @@ def loggauss(r, S):
 
 
 def msq(P):
+    if EQ_SQRT:     # symmetric (rotation-equivariant) square root (audit fix, 2026-11-24; EQ_SQRT=0 reproduces the original runs)
+        lam, V = np.linalg.eigh(0.5 * (P + np.swapaxes(P, -1, -2))); lam = np.clip(lam, 0.0, None)
+        return V * np.sqrt(lam)[..., None, :]
     d = np.sqrt(np.clip(np.einsum("...ii->...i", P), 1e-30, None)); C = P / (d[..., :, None] * d[..., None, :])
     lam, V = np.linalg.eigh(C); lam = np.clip(lam, 1e-12, None)
     return V * np.sqrt(lam)[..., None, :] * d[..., :, None]
@@ -127,7 +132,11 @@ def ev(meas, z, R, mT, PT, it=2):
     for _ in range(it):
         S = msq(n * P); St = np.swapaxes(S, -1, -2)
         pts = np.concatenate([m[..., None, :], m[..., None, :] + St, m[..., None, :] - St], -2)
-        Hy = meas.h(pts); my = np.einsum("p,...pd->...d", Wt, Hy); Dy = wrap(Hy - my[..., None, :])
+        Hy = meas.h(pts); my = np.einsum("p,...pd->...d", Wt, Hy)
+        if CIRC_MEAN:   # right ascension(s) averaged on the circle (audit fix, 2026-11-24; CIRC_MEAN=0 reproduces the original runs)
+            for ia in ((0, 4) if Hy.shape[-1] == 8 else (0,)):
+                my[..., ia] = np.arctan2(np.einsum("p,...p->...", Wt, np.sin(Hy[..., ia])), np.einsum("p,...p->...", Wt, np.cos(Hy[..., ia])))
+        Dy = wrap(Hy - my[..., None, :])
         Pyy = np.einsum("p,...pd,...pe->...de", Wt, Dy, Dy); DX = pts - m[..., None, :]
         Cxy = np.einsum("p,...pd,...pe->...de", Wt, DX, Dy)
         A = np.einsum("...de,...df->...ef", Cxy, _inv(P)); b = my - np.einsum("...ij,...j->...i", A, m)

@@ -13,11 +13,26 @@ paper and its supplement. `REPRODUCE.md` maps each table and figure to its scrip
     python verify_freeze.py          # E6c freeze record: 15 of 17 hashes reproduced, 2 explained (see below)
     python e17K_analyze.py           # E6c pre-registered primary: +0.0264 [0.0118, 0.0410], 35 satellites
     python e25_k3_analyze.py         # E6c exploratory re-scoring: CTRLp, IMM variants, real confusers, all eligible events
-    python figures/make_figures.py   # the four figures, written to figures/ (needs only the summaries)
+    python figures/forest_se.py      # per-satellite standard errors for the forest plots (needs the per-event files)
+    python figures/make_figures.py   # the four figures, as vector PDF and 600-dpi PNG, written to figures/
+                                     # (needs numba: Fig. 1 re-propagates 20 000 particles, about 15 s on a CPU)
 
 All analysis scripts read only the JSON result files shipped here. Re-running the scoring itself needs the public
 precise orbits (below) and, for practical run times, an NVIDIA GPU (`USE_GPU=1`, Numba CUDA); `USE_GPU=0` uses the
 CPU propagator (several times slower); Amendment 2 of `PREREG_E6c.md` reports the GPU-CPU agreement.
+
+## Angle fix in the tracklet evidence (audit of 24 November 2026)
+
+A pre-submission audit found that `ev()` in `e11_numeric.py` averaged the right ascension of the sigma points
+arithmetically and used a non-equivariant matrix square root, which made the evidence of optical-tracklet UCTs depend
+on the orientation of the inertial frame. The effect is large for the single moment-matched Gaussian (UKF, IMM) and
+negligible for the mixture-based scores in LEO (Prop, Lin, CTRLu: at most 0.1 nat). After the two-day gaps of medium Earth
+and geosynchronous orbits, however, the maneuver-hypothesis blocks of Prop, Lin and CTRLp span wide arcs of right
+ascension, and their tracklet evidence in the original E6c runs is degenerate (median F of order -1e10 nats for MEO
+tracklets); the E6c tracklet results for MEO and QZSS therefore come from the rerun.
+`e11_numeric.py` now averages angles on the circle and uses a symmetric square root (switches `CIRC_MEAN=1`,
+`EQ_SQRT=1`, the defaults); `CIRC_MEAN=0 EQ_SQRT=0` reproduces the original runs. `run22_circ.sh` repeats every
+tracklet scoring with the fix; full-state results are unaffected because `ev()` does not use either step for them.
 
 ## Git repository and Zenodo deposit
 
@@ -51,16 +66,29 @@ Comments inside the scripts are partly in Portuguese.
 
 `PREREG_E6c.md` is the plan as it stands: the text frozen on 2026-11-08 04:02 UTC followed, unchanged, by dated
 amendments 2–3 (implementation only, before any result was inspected), the result record, and two exploratory
-addenda written after unblinding. `frozen_E6c/PREREG_E6c.md` is the frozen text itself (its SHA-256 matches the
+addenda written after the confirmatory result was known. `frozen_E6c/PREREG_E6c.md` is the frozen text itself (its SHA-256 matches the
 freeze record), and it is byte-identical to the first 117 lines of `PREREG_E6c.md`. The freeze record was written
 locally (hash and timestamp); it was not deposited with a third party at the time.
 
 `verify_freeze.py` checks every hash in `PREREG_E6c.freeze.json`. All event lists, the selection, the force models,
 the propagator, the event builder and the frozen estimator versions (`frozen_E6c/e10_numeric.py`,
-`frozen_E6c/e11_numeric.py`) reproduce their hashes. Two code files changed after freezing and their frozen copies
-were not retained: `numprop_gpu.py` (Amendment 2: Sun/Moon series evaluated on a 60-s host grid; GPU vs CPU
-propagation differs by 3e-5 m after 2 days) and `e17_scoreK.py` (Amendment 3: regularization only when a matrix is
-singular, and deterministic resumption). The analysis script `e17K_analyze.py` is unchanged since freezing.
+`frozen_E6c/e11_numeric.py`) reproduce their hashes (15 of 17). Two code files changed after freezing and their frozen
+copies were not retained: `numprop_gpu.py` (Amendment 2: Sun/Moon series evaluated on a 60-s host grid; GPU vs CPU
+propagation differs by 3e-5 m after 2 days) and `e17_scoreK.py` (Amendment 3: deterministic resumption from partial
+files). The regularization rule of Amendment 3 (regularize a batch only when one of its matrices is singular) was
+implemented in `e11_numeric.py` (functions `_reg`, `_inv`, `_solve`); the `e11_numeric.py` shipped here also contains
+the later, switchable exploratory options (`EXTRA`, `EXTRA2`, `SIGNED`, `COV_SCALE`, `tracklet2`), so the exact
+estimator file used in the confirmatory runs is `frozen_E6c/e11_numeric.py` plus Amendment 3, not a stored file.
+
+What the freeze record does not cover: the analysis scripts (`e17K_analyze.py` and the inference functions in
+`e12K_analyze.py`) were not hashed, so their being unchanged since freezing cannot be checked from the record. As a
+check of the whole chain, the exploratory rescoring with the current code reproduced all 252 confirmatory
+per-event values exactly (`e17K2_analyze.py`, maximum relative difference 0.0), and `e17K_analyze.py` reproduces
+the primary result from the shipped per-event files.
+
+Two notes on the plan text: the sign-flip test is exact (all sign vectors) for 12 satellites (E6s) and uses
+2x10^5 random sign vectors for 35 satellites (E6c); and addendum 1 of `PREREG_E6c.md` says that the two-tracklet case
+was "not reported", whereas it was later analysed and reported in the Supplementary Material (Section S3).
 
 ## Data not included (public, downloaded by the scripts)
 
