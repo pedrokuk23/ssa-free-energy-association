@@ -1,0 +1,5 @@
+The analysis plans (PREREG_*.md), freeze records, result files (*.json, *.txt) and figures in this package are
+licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+data/maneuver_labels_v0.3.json is derived from maneuver-detect v0.3 (CC BY 4.0); see the article for the citation.

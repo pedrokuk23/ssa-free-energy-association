@@ -1,0 +1,1 @@
+echo 41335 43437 36508 41240 39086 | tr ' ' '\n' | xargs -P 3 -I{} sh -c 'YEARS=2022,2022 ACS=ssa,gsc,grg,lca,ign nice -n 5 ~/venv/bin/python e15_scan.py {} > log12_{}.txt 2>&1; echo FIM >> log12_{}.txt'

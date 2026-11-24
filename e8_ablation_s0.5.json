@@ -1,0 +1,30 @@
+{
+ "dv>=0.05": {
+  "GM": 0.764,
+  "learn": 0.902,
+  "dir_only": 0.902,
+  "mag_only": 0.906,
+  "flat": 0.906
+ },
+ "cross-track": {
+  "GM": 0.906,
+  "learn": 0.978,
+  "dir_only": 0.978,
+  "mag_only": 0.978,
+  "flat": 0.978
+ },
+ "in-track>=0.05": {
+  "GM": 0.624,
+  "learn": 0.824,
+  "dir_only": 0.824,
+  "mag_only": 0.832,
+  "flat": 0.832
+ },
+ "todas": {
+  "GM": 0.95,
+  "learn": 0.979,
+  "dir_only": 0.979,
+  "mag_only": 0.98,
+  "flat": 0.98
+ }
+}

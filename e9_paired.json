@@ -1,0 +1,146 @@
+{
+ "0.5": {
+  "acc_big: learn-GM": [
+   -0.103,
+   0.08,
+   0.479
+  ],
+  "acc_big: learn-CTRL": [
+   -0.113,
+   0.084,
+   0.589
+  ],
+  "acc_big: learn-iso_lin": [
+   -0.14,
+   0.022,
+   0.925
+  ],
+  "acc_cross: learn-GM": [
+   -0.089,
+   0.173,
+   0.229
+  ],
+  "acc_cross: learn-CTRL": [
+   0.021,
+   0.255,
+   0.008
+  ],
+  "acc_cross: learn-iso_lin": [
+   -0.161,
+   0.064,
+   0.849
+  ],
+  "auc_nb_big: learn-GM": [
+   0.089,
+   0.173,
+   0.0
+  ],
+  "auc_nb_big: learn-CTRL": [
+   0.06,
+   0.172,
+   0.0
+  ],
+  "auc_nb_big: learn-iso_lin": [
+   0.026,
+   0.074,
+   0.0
+  ],
+  "logloss: iso_lin-learn": [
+   0.017,
+   0.024,
+   0.0
+  ],
+  "logloss: maxwell_0.3-learn": [
+   0.013,
+   0.019,
+   0.0
+  ],
+  "logloss: maxwell_3-learn": [
+   0.097,
+   0.106,
+   0.0
+  ],
+  "logloss: flat-learn": [
+   0.001,
+   0.002,
+   0.0
+  ],
+  "logloss: maxwell_0.03-learn": [
+   0.0,
+   0.002,
+   0.0
+  ]
+ },
+ "0.05": {
+  "acc_big: learn-GM": [
+   0.045,
+   0.246,
+   0.004
+  ],
+  "acc_big: learn-CTRL": [
+   0.078,
+   0.338,
+   0.002
+  ],
+  "acc_big: learn-iso_lin": [
+   0.026,
+   0.246,
+   0.013
+  ],
+  "acc_cross: learn-GM": [
+   -0.063,
+   0.294,
+   0.163
+  ],
+  "acc_cross: learn-CTRL": [
+   0.04,
+   0.474,
+   0.007
+  ],
+  "acc_cross: learn-iso_lin": [
+   -0.083,
+   0.27,
+   0.339
+  ],
+  "auc_nb_big: learn-GM": [
+   0.036,
+   0.179,
+   0.0
+  ],
+  "auc_nb_big: learn-CTRL": [
+   -0.065,
+   0.14,
+   0.257
+  ],
+  "auc_nb_big: learn-iso_lin": [
+   0.033,
+   0.175,
+   0.0
+  ],
+  "logloss: iso_lin-learn": [
+   0.016,
+   0.028,
+   0.0
+  ],
+  "logloss: maxwell_0.3-learn": [
+   0.022,
+   0.04,
+   0.0
+  ],
+  "logloss: maxwell_3-learn": [
+   0.089,
+   0.111,
+   0.0
+  ],
+  "logloss: flat-learn": [
+   0.002,
+   0.007,
+   0.0
+  ],
+  "logloss: maxwell_0.03-learn": [
+   -0.005,
+   0.002,
+   0.692
+  ]
+ }
+}

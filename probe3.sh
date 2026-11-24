@@ -1,0 +1,2 @@
+for u in https://isdcftp.gfz-potsdam.de/ https://isdcftp.gfz-potsdam.de/grace-fo/ https://isdc-data.gfz.de/ https://isdc-data.gfz.de/grace-fo/ https://isdc-data.gfz.de/grace-fo/Level-1B/ https://isdc-data.gfz.de/grace-fo/Level-1B/JPL/INSTRUMENT/RL04/ https://isdc-data.gfz.de/tsxtdx/ORBIT/ https://isdc-data.gfz.de/champ/ORBIT/ https://step.esa.int/auxdata/orbits/Sentinel-1/POEORB/ ; do
+ echo "== $u"; curl -s -L -m 40 -w '\nHTTP %{http_code} %{url_effective}\n' "$u" | sed 's/<[^>]*>/ /g' | tr -s ' ' | grep -v '^ *$' | head -14; done

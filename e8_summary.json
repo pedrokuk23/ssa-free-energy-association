@@ -1,0 +1,326 @@
+{
+ "0.5": {
+  "todas": {
+   "n": 1500,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.646,
+    "GM": 0.869,
+    "CTRL": 0.889,
+    "GM+iso": 0.875,
+    "GM+learn": 0.91
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.958,
+    "GM": 0.959,
+    "CTRL": 0.961,
+    "GM+iso": 0.966,
+    "GM+learn": 0.982
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.213,
+    "GM": 0.753,
+    "CTRL": 0.687,
+    "GM+iso": 0.753,
+    "GM+learn": 0.753
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.595,
+    "CTRL": 0.584,
+    "P(H1) iso": 0.599,
+    "P(H1) learn": 0.599
+   }
+  },
+  "dv>=0.05": {
+   "n": 312,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.184,
+    "GM": 0.451,
+    "CTRL": 0.599,
+    "GM+iso": 0.479,
+    "GM+learn": 0.65
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.798,
+    "GM": 0.804,
+    "CTRL": 0.814,
+    "GM+iso": 0.837,
+    "GM+learn": 0.913
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.064,
+    "GM": 0.199,
+    "CTRL": 0.25,
+    "GM+iso": 0.199,
+    "GM+learn": 0.199
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.9,
+    "CTRL": 0.845,
+    "P(H1) iso": 0.905,
+    "P(H1) learn": 0.898
+   }
+  },
+  "in-track": {
+   "n": 1334,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.709,
+    "GM": 0.924,
+    "CTRL": 0.925,
+    "GM+iso": 0.931,
+    "GM+learn": 0.936
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.963,
+    "GM": 0.962,
+    "CTRL": 0.968,
+    "GM+iso": 0.972,
+    "GM+learn": 0.981
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.233,
+    "GM": 0.827,
+    "CTRL": 0.754,
+    "GM+iso": 0.828,
+    "GM+learn": 0.827
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.556,
+    "CTRL": 0.544,
+    "P(H1) iso": 0.559,
+    "P(H1) learn": 0.562
+   }
+  },
+  "cross-track": {
+   "n": 166,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.137,
+    "GM": 0.424,
+    "CTRL": 0.597,
+    "GM+iso": 0.426,
+    "GM+learn": 0.703
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.916,
+    "GM": 0.94,
+    "CTRL": 0.91,
+    "GM+iso": 0.922,
+    "GM+learn": 0.994
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.048,
+    "GM": 0.157,
+    "CTRL": 0.151,
+    "GM+iso": 0.157,
+    "GM+learn": 0.157
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.916,
+    "CTRL": 0.908,
+    "P(H1) iso": 0.918,
+    "P(H1) learn": 0.897
+   }
+  },
+  "sem manobra": {
+   "AUC_vizinho": {
+    "UKF": 0.775,
+    "GM": 0.98,
+    "CTRL": 0.967,
+    "GM+iso": 0.98,
+    "GM+learn": 0.98
+   },
+   "TPR@1%_campo": {
+    "UKF": 1.0,
+    "GM": 1.0,
+    "CTRL": 1.0,
+    "GM+iso": 1.0,
+    "GM+learn": 1.0
+   }
+  },
+  "caracterizacao": {
+   "n": 220,
+   "acerto_tipo": 1.0,
+   "erro_log10_dv_mediana": 0.047,
+   "fator_mediano": 1.11
+  },
+  "calibracao": {
+   "pH1_iso": {
+    "brier": 0.0261,
+    "logloss": 0.151,
+    "media_P_sem": 0.009,
+    "media_P_com": 0.159
+   },
+   "pH1_learn": {
+    "brier": 0.0248,
+    "logloss": 0.1211,
+    "media_P_sem": 0.015,
+    "media_P_com": 0.162
+   },
+   "referencia_constante_p1": {
+    "brier": 0.0276,
+    "logloss": 0.1293
+   }
+  }
+ },
+ "0.05": {
+  "todas": {
+   "n": 1500,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.608,
+    "GM": 0.629,
+    "CTRL": 0.676,
+    "GM+iso": 0.631,
+    "GM+learn": 0.632
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.949,
+    "GM": 0.951,
+    "CTRL": 0.956,
+    "GM+iso": 0.954,
+    "GM+learn": 0.973
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.203,
+    "GM": 0.221,
+    "CTRL": 0.243,
+    "GM+iso": 0.221,
+    "GM+learn": 0.221
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.608,
+    "CTRL": 0.591,
+    "P(H1) iso": 0.615,
+    "P(H1) learn": 0.62
+   }
+  },
+  "dv>=0.05": {
+   "n": 325,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.111,
+    "GM": 0.118,
+    "CTRL": 0.19,
+    "GM+iso": 0.124,
+    "GM+learn": 0.13
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.763,
+    "GM": 0.775,
+    "CTRL": 0.797,
+    "GM+iso": 0.788,
+    "GM+learn": 0.874
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.015,
+    "GM": 0.018,
+    "CTRL": 0.055,
+    "GM+iso": 0.018,
+    "GM+learn": 0.018
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.944,
+    "CTRL": 0.9,
+    "P(H1) iso": 0.944,
+    "P(H1) learn": 0.934
+   }
+  },
+  "in-track": {
+   "n": 1317,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.682,
+    "GM": 0.705,
+    "CTRL": 0.756,
+    "GM+iso": 0.707,
+    "GM+learn": 0.706
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.952,
+    "GM": 0.953,
+    "CTRL": 0.957,
+    "GM+iso": 0.957,
+    "GM+learn": 0.969
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.228,
+    "GM": 0.249,
+    "CTRL": 0.273,
+    "GM+iso": 0.249,
+    "GM+learn": 0.249
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.56,
+    "CTRL": 0.542,
+    "P(H1) iso": 0.567,
+    "P(H1) learn": 0.576
+   }
+  },
+  "cross-track": {
+   "n": 183,
+   "AUC_vizinho (manobrado)": {
+    "UKF": 0.077,
+    "GM": 0.082,
+    "CTRL": 0.099,
+    "GM+iso": 0.083,
+    "GM+learn": 0.097
+   },
+   "TPR@1%_campo (manobrado)": {
+    "UKF": 0.923,
+    "GM": 0.94,
+    "CTRL": 0.951,
+    "GM+iso": 0.929,
+    "GM+learn": 1.0
+   },
+   "TPR@5%_vizinho (manobrado)": {
+    "UKF": 0.022,
+    "GM": 0.022,
+    "CTRL": 0.027,
+    "GM+iso": 0.022,
+    "GM+learn": 0.022
+   },
+   "AUC_deteccao": {
+    "GM: −log p0": 0.956,
+    "CTRL": 0.948,
+    "P(H1) iso": 0.954,
+    "P(H1) learn": 0.942
+   }
+  },
+  "sem manobra": {
+   "AUC_vizinho": {
+    "UKF": 0.758,
+    "GM": 0.785,
+    "CTRL": 0.813,
+    "GM+iso": 0.785,
+    "GM+learn": 0.785
+   },
+   "TPR@1%_campo": {
+    "UKF": 1.0,
+    "GM": 1.0,
+    "CTRL": 1.0,
+    "GM+iso": 1.0,
+    "GM+learn": 1.0
+   }
+  },
+  "caracterizacao": {
+   "n": 259,
+   "acerto_tipo": 1.0,
+   "erro_log10_dv_mediana": 0.048,
+   "fator_mediano": 1.12
+  },
+  "calibracao": {
+   "pH1_iso": {
+    "brier": 0.025,
+    "logloss": 0.1433,
+    "media_P_sem": 0.01,
+    "media_P_com": 0.191
+   },
+   "pH1_learn": {
+    "brier": 0.0259,
+    "logloss": 0.1308,
+    "media_P_sem": 0.03,
+    "media_P_com": 0.205
+   },
+   "referencia_constante_p1": {
+    "brier": 0.0276,
+    "logloss": 0.1293
+   }
+  }
+ }
+}

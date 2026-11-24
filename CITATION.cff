@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this package, please cite the article and this deposit."
+title: "Free-energy association of maneuvering space objects: code, analysis plans and results"
+type: software
+authors:
+  - family-names: "Kukulka de Albuquerque"
+    given-names: "Pedro"
+    orcid: "https://orcid.org/0009-0007-0275-9183"
+    affiliation: "Aeronautics Institute of Technology (ITA)"
+license: MIT
+doi: "10.5281/zenodo.24509633"
+version: "1.0.0"
+date-released: "2026-11-24"
+keywords: [space situational awareness, data association, maneuver detection, free energy, pre-registration]
+preferred-citation:
+  type: article
+  title: "Free-energy association of maneuvering space objects: Relating statistical evidence and control distance"
+  authors:
+    - family-names: "Kukulka de Albuquerque"
+      given-names: "Pedro"
+  journal: "Acta Astronautica"
+  status: submitted

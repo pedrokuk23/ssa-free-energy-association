@@ -1,0 +1,34 @@
+{
+ "utc": "2026-11-08T04:02:04.102582Z",
+ "files": {
+  "e17_events_gnss.json": "86d76b804252be5cec2248ea3b8c886eeeb84aede7b59dd31adc52764d446ab5",
+  "e17sel_meo.json": "3e63a9411c6e39209dc982e891513cfeba3279c00425b31098eed91ab6c1f76b",
+  "e17_events_qzss.json": "ac7ad4c6d8ba95cf06f8b6d30b4f70e7fe7757eef26b18bd85382b489adbe735",
+  "e17_events_qzss2.json": "c541606fb30532bc5b4dc7b0ccc302cd5fa21d64b3becb30bf9142b58262c43b",
+  "e17sel_qzss.json": "f691c1bf13213c6b97ffa2adec10825a1415359e382e53c251c8993b31ba6c79",
+  "e17_events_leo.json": "d1358b13cd8c312ffbca665210c9b92ccc3013d83257d3956b44ed8c04cc3616",
+  "e17sel_leo.json": "0e1475120c60278f1277ee94274affc8dd413acef307ed4e69712ab575d25c0d",
+  "PREREG_E6c.md": "182459478cfa25725747d6bfc8f8b28772a1a6daf25a608ec9546ae818485cb3",
+  "e17_scoreK.py": "584bb6c2275a640f74d62b6883fa5b1e653de65fac3fb797c48b253b14a6b091",
+  "e10_numeric.py": "f61f21f7d0a98a3a8da5d6474c8c02956abd2b80a20ecf4f794cea5826709bd5",
+  "e11_numeric.py": "ebc2559a1a01b29de33df3d0d1df90f7c3313134e2df3a6070f1785ba0fe3802",
+  "numprop.py": "4eb523f8d659615da8483437a01299b21ecd4841bf916ce8bb851a86c1806b7d",
+  "numprop_gpu.py": "9c0d3cff019afc80ee8b186ad9fd874040b46349fd0e141162aeb492ee16f0d1",
+  "forces3b.py": "18c36250d2a500977db7453cc299a51422f1f86092f623abeb275697f02e7bba",
+  "e17_gnss_events.py": "bae498b389a5c7947f47988edcd893b72db96f48119d9724c6d24c49b4fb3087",
+  "e15_src.py": "14ceb2dcf48593129f61968badc006fc4b3945c3e5d46c234c5ce02c582be0d5",
+  "e12_fetch.py": "c1aad22f163265f5895839307d65a65db5944d46026c5ae61537fc741e8d2e05"
+ },
+ "meo": {
+  "events": 90,
+  "satellites": 28
+ },
+ "qzss": {
+  "events": 23,
+  "satellites": 4
+ },
+ "leo": {
+  "events": 13,
+  "satellites": 3
+ }
+}

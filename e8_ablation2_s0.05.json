@@ -1,0 +1,42 @@
+{
+ "dv>=0.05": {
+  "GM": 0.71,
+  "learn": 0.833,
+  "dir_only": 0.833,
+  "mag_only": 0.839,
+  "flat": 0.839,
+  "maxwell_0.3": 0.849,
+  "maxwell_0.03": 0.839,
+  "maxwell_3": 0.839
+ },
+ "cross-track": {
+  "GM": 0.897,
+  "learn": 1.0,
+  "dir_only": 1.0,
+  "mag_only": 1.0,
+  "flat": 1.0,
+  "maxwell_0.3": 1.0,
+  "maxwell_0.03": 1.0,
+  "maxwell_3": 1.0
+ },
+ "in-track>=0.05": {
+  "GM": 0.542,
+  "learn": 0.677,
+  "dir_only": 0.677,
+  "mag_only": 0.688,
+  "flat": 0.688,
+  "maxwell_0.3": 0.708,
+  "maxwell_0.03": 0.688,
+  "maxwell_3": 0.688
+ },
+ "todas": {
+  "GM": 0.94,
+  "learn": 0.966,
+  "dir_only": 0.966,
+  "mag_only": 0.967,
+  "flat": 0.967,
+  "maxwell_0.3": 0.969,
+  "maxwell_0.03": 0.967,
+  "maxwell_3": 0.967
+ }
+}
