@@ -167,7 +167,11 @@ def fig_forest_e6s():
 def fig_forest_e6c():
     """Fig. 3 (E6c): per-satellite Prop - CTRLu, from e17K_summary.json; regimes from e17sel_*.json."""
     import re
-    P = json.load(open("e17K_summary.json"))["primary"]; F = P["forest"]
+    # audit 2026-11-26: corrected tracklet scores (e27_circ_summary.json) when present; the analysis as frozen is drawn as a
+    # second, open diamond (e17K_summary.json)
+    circ = os.path.exists("e27_circ_summary.json")
+    P = json.load(open("e27_circ_summary.json" if circ else "e17K_summary.json"))["primary"]; F = P["forest"]
+    P0 = json.load(open("e17K_summary.json"))["primary"]
     reg = {str(e["sat"]): g for g in ("meo", "qzss", "leo") for e in json.load(open(f"e17sel_{g}.json"))["events"]}
     name = {}
     for r in json.load(open("data/maneuver_labels_v0.3.json")):
@@ -190,9 +194,15 @@ def fig_forest_e6c():
             ax.axhline(first + 0.5, color="#bdbdbd", lw=0.5)
         ax.text(P["ci"][1] + 0.02, 0, f"{P['mu']:+.3f} [{P['ci'][0]:+.3f}, {P['ci'][1]:+.3f}]", color=RE_COL, fontsize=7,
                 ha="left", va="center")
+        if circ:                                                    # analysis as frozen (original tracklet scores)
+            mu0, (lo0, hi0) = P0["mu"], P0["ci"]
+            ax.fill([lo0, mu0, hi0, mu0], [-1, -0.55, -1, -1.45], facecolor="none", edgecolor=RE_COL, lw=0.8, zorder=3)
+            ax.text(hi0 + 0.02, -1, f"{mu0:+.3f} [{lo0:+.3f}, {hi0:+.3f}]", color=RE_COL, fontsize=7, ha="left", va="center")
+            ax.set_yticks(list(ax.get_yticks()) + [-1])
+            ax.set_yticklabels([t.get_text() for t in ax.get_yticklabels()][:-1] + ["RE, as frozen"])
         for g in sty: ax.scatter([], [], marker=sty[g][0], color=sty[g][1], s=22, label=lab[g])
-        ax.legend(loc="upper right", frameon=True, framealpha=0.9, edgecolor="none", fontsize=7)
-        ax.set_xlim(-0.35, 0.45); ax.set_ylim(-0.9, y[0] + 0.8)
+        ax.legend(loc="lower center", bbox_to_anchor=(0.45, 1.0), ncol=3, frameon=False, fontsize=7, handletextpad=0.3, columnspacing=0.8)
+        ax.set_xlim(-0.35, 0.45); ax.set_ylim(-1.9 if circ else -0.9, y[0] + 0.8)
         ax.set_xlabel("Difference in correct joint-assignment rate,\nProp $-$ CTRLu (mean of the two UCT types)")
         fig.tight_layout(pad=0.4); save(fig, "fig_forest_e6c")
 

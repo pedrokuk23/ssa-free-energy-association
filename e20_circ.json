@@ -1,0 +1,580 @@
+{
+ "n_events": 126,
+ "n_sats": 35,
+ "sens_learn_CTRLu": {
+  "pooled_DL_HKSJ": {
+   "k": 35,
+   "mu": 0.0387,
+   "ci": [
+    0.024,
+    0.0534
+   ],
+   "p_one": 0.0,
+   "tau": 0.0,
+   "pred": [
+    0.024,
+    0.0534
+   ],
+   "I2": 0.0,
+   "signflip_p": 0.0,
+   "n_ev": 126
+  },
+  "pooled_HKSJ_trunc": {
+   "mu": 0.0387,
+   "ci": [
+    0.0199,
+    0.0575
+   ],
+   "p_one": 0.0001,
+   "tau": 0.0
+  },
+  "pooled_PM": {
+   "mu": 0.0387,
+   "ci": [
+    0.024,
+    0.0534
+   ],
+   "p_one": 0.0,
+   "tau": 0.0
+  },
+  "pooled_REML": {
+   "mu": 0.0387,
+   "ci": [
+    0.024,
+    0.0534
+   ],
+   "p_one": 0.0,
+   "tau": 0.0
+  },
+  "unpooled_PM": {
+   "mu": 0.0436,
+   "ci": [
+    0.029,
+    0.0582
+   ],
+   "p_one": 0.0,
+   "tau": 0.0198
+  },
+  "unpooled_PM_trunc": {
+   "mu": 0.0436,
+   "ci": [
+    0.029,
+    0.0582
+   ],
+   "p_one": 0.0,
+   "tau": 0.0198
+  },
+  "sat_mean_t": {
+   "mu": 0.0419,
+   "p_one": 0.0
+  },
+  "event_CR2": {
+   "mu": 0.0387,
+   "ci": [
+    0.0236,
+    0.0538
+   ],
+   "p_one": 0.0
+  },
+  "leave_out": {
+   "meo": {
+    "k": 7,
+    "mu": 0.0236,
+    "ci": [
+     -0.0024,
+     0.0496
+    ],
+    "p_one": 0.034,
+    "tau": 0.0,
+    "pred": [
+     -0.0037,
+     0.0509
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.0781,
+    "n_ev": 36
+   },
+   "qzss": {
+    "k": 31,
+    "mu": 0.0451,
+    "ci": [
+     0.029,
+     0.0612
+    ],
+    "p_one": 0.0,
+    "tau": 0.0,
+    "pred": [
+     0.029,
+     0.0613
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.0,
+    "n_ev": 103
+   },
+   "leo": {
+    "k": 32,
+    "mu": 0.0376,
+    "ci": [
+     0.0215,
+     0.0537
+    ],
+    "p_one": 0.0,
+    "tau": 0.0,
+    "pred": [
+     0.0215,
+     0.0537
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.0,
+    "n_ev": 113
+   }
+  }
+ },
+ "sens_learn_CTRLp": {
+  "pooled_DL_HKSJ": {
+   "k": 35,
+   "mu": 0.0062,
+   "ci": [
+    -0.001,
+    0.0133
+   ],
+   "p_one": 0.0437,
+   "tau": 0.0,
+   "pred": [
+    -0.001,
+    0.0133
+   ],
+   "I2": 0.0,
+   "signflip_p": 0.086,
+   "n_ev": 126
+  },
+  "pooled_HKSJ_trunc": {
+   "mu": 0.0062,
+   "ci": [
+    -0.0021,
+    0.0144
+   ],
+   "p_one": 0.0699,
+   "tau": 0.0
+  },
+  "pooled_PM": {
+   "mu": 0.0062,
+   "ci": [
+    -0.001,
+    0.0133
+   ],
+   "p_one": 0.0437,
+   "tau": 0.0
+  },
+  "pooled_REML": {
+   "mu": 0.0061,
+   "ci": [
+    -0.001,
+    0.0132
+   ],
+   "p_one": 0.044,
+   "tau": 0.0019
+  },
+  "unpooled_PM": {
+   "mu": 0.0061,
+   "ci": [
+    0.0004,
+    0.0119
+   ],
+   "p_one": 0.019,
+   "tau": 0.0076
+  },
+  "unpooled_PM_trunc": {
+   "mu": 0.0061,
+   "ci": [
+    0.0004,
+    0.0119
+   ],
+   "p_one": 0.019,
+   "tau": 0.0076
+  },
+  "sat_mean_t": {
+   "mu": 0.0052,
+   "p_one": 0.0857
+  },
+  "event_CR2": {
+   "mu": 0.0062,
+   "ci": [
+    -0.0022,
+    0.0145
+   ],
+   "p_one": 0.0721
+  },
+  "leave_out": {
+   "meo": {
+    "k": 7,
+    "mu": 0.0229,
+    "ci": [
+     0.0091,
+     0.0367
+    ],
+    "p_one": 0.0033,
+    "tau": 0.0,
+    "pred": [
+     0.0084,
+     0.0374
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.0156,
+    "n_ev": 36
+   },
+   "qzss": {
+    "k": 31,
+    "mu": 0.0007,
+    "ci": [
+     -0.0059,
+     0.0074
+    ],
+    "p_one": 0.4123,
+    "tau": 0.0,
+    "pred": [
+     -0.0059,
+     0.0074
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.444,
+    "n_ev": 103
+   },
+   "leo": {
+    "k": 32,
+    "mu": 0.0058,
+    "ci": [
+     -0.0021,
+     0.0136
+    ],
+    "p_one": 0.0724,
+    "tau": 0.0,
+    "pred": [
+     -0.0021,
+     0.0136
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.1252,
+    "n_ev": 113
+   }
+  }
+ },
+ "sens_learn_IMM": {
+  "pooled_DL_HKSJ": {
+   "k": 35,
+   "mu": 0.0192,
+   "ci": [
+    0.0078,
+    0.0307
+   ],
+   "p_one": 0.0008,
+   "tau": 0.0,
+   "pred": [
+    0.0078,
+    0.0307
+   ],
+   "I2": 0.0,
+   "signflip_p": 0.0012,
+   "n_ev": 126
+  },
+  "pooled_HKSJ_trunc": {
+   "mu": 0.0192,
+   "ci": [
+    0.0067,
+    0.0318
+   ],
+   "p_one": 0.0018,
+   "tau": 0.0
+  },
+  "pooled_PM": {
+   "mu": 0.0192,
+   "ci": [
+    0.0078,
+    0.0307
+   ],
+   "p_one": 0.0008,
+   "tau": 0.0
+  },
+  "pooled_REML": {
+   "mu": 0.0197,
+   "ci": [
+    0.0082,
+    0.0312
+   ],
+   "p_one": 0.0007,
+   "tau": 0.0083
+  },
+  "unpooled_PM": {
+   "mu": 0.028,
+   "ci": [
+    0.0173,
+    0.0387
+   ],
+   "p_one": 0.0,
+   "tau": 0.0192
+  },
+  "unpooled_PM_trunc": {
+   "mu": 0.028,
+   "ci": [
+    0.0173,
+    0.0387
+   ],
+   "p_one": 0.0,
+   "tau": 0.0192
+  },
+  "sat_mean_t": {
+   "mu": 0.0222,
+   "p_one": 0.0004
+  },
+  "event_CR2": {
+   "mu": 0.0192,
+   "ci": [
+    0.0061,
+    0.0324
+   ],
+   "p_one": 0.0027
+  },
+  "leave_out": {
+   "meo": {
+    "k": 7,
+    "mu": -0.0069,
+    "ci": [
+     -0.0287,
+     0.0148
+    ],
+    "p_one": 0.768,
+    "tau": 0.0,
+    "pred": [
+     -0.0298,
+     0.0159
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.75,
+    "n_ev": 36
+   },
+   "qzss": {
+    "k": 31,
+    "mu": 0.0278,
+    "ci": [
+     0.0162,
+     0.0394
+    ],
+    "p_one": 0.0,
+    "tau": 0.0147,
+    "pred": [
+     -0.0044,
+     0.0599
+    ],
+    "I2": 0.217,
+    "signflip_p": 0.0001,
+    "n_ev": 103
+   },
+   "leo": {
+    "k": 32,
+    "mu": 0.0206,
+    "ci": [
+     0.0083,
+     0.0328
+    ],
+    "p_one": 0.0009,
+    "tau": 0.0,
+    "pred": [
+     0.0083,
+     0.0328
+    ],
+    "I2": 0.0,
+    "signflip_p": 0.0018,
+    "n_ev": 113
+   }
+  }
+ },
+ "variance": {
+  "draw_within_event": 0.1727,
+  "event_within_sat": 0.00963,
+  "between_sat_means": 0.00291,
+  "implied_event_component": 0.00531
+ },
+ "offset": {
+  "1.5-2.0": {
+   "rates": {
+    "learn": 0.5916,
+    "CTRLu": 0.5379,
+    "CTRLp": 0.5788,
+    "IMM": 0.5685,
+    "lin_learn": 0.5821
+   },
+   "learn_CTRLu": {
+    "mu": 0.0537,
+    "ci": [
+     0.0313,
+     0.076
+    ],
+    "p_one": 0.0,
+    "n_ev": 126
+   }
+  },
+  "2.0-2.5": {
+   "rates": {
+    "learn": 0.6026,
+    "CTRLu": 0.568,
+    "CTRLp": 0.6012,
+    "IMM": 0.5878,
+    "lin_learn": 0.6052
+   },
+   "learn_CTRLu": {
+    "mu": 0.0346,
+    "ci": [
+     0.0095,
+     0.0596
+    ],
+    "p_one": 0.0041,
+    "n_ev": 126
+   }
+  },
+  "2.5-3.0": {
+   "rates": {
+    "learn": 0.6232,
+    "CTRLu": 0.5906,
+    "CTRLp": 0.6199,
+    "IMM": 0.6038,
+    "lin_learn": 0.6241
+   },
+   "learn_CTRLu": {
+    "mu": 0.0326,
+    "ci": [
+     0.0027,
+     0.0625
+    ],
+    "p_one": 0.0167,
+    "n_ev": 126
+   }
+  }
+ },
+ "ties": {
+  "learn": 0.0,
+  "CTRLu": 0.0,
+  "CTRL": 0.0,
+  "CTRLp": 0.0,
+  "IMM": 0.0,
+  "GM": 0.0,
+  "UKF": 0.0
+ },
+ "dv": {
+  ">=0.05": {
+   "mu": 0.0387,
+   "ci": [
+    0.024,
+    0.0534
+   ],
+   "p_one": 0.0,
+   "n_ev": 126,
+   "k": 35
+  },
+  ">=0.1": {
+   "mu": 0.0342,
+   "ci": [
+    0.0198,
+    0.0485
+   ],
+   "p_one": 0.0,
+   "n_ev": 112,
+   "k": 32
+  },
+  ">=0.2": {
+   "mu": 0.0194,
+   "ci": [
+    -0.0128,
+    0.0516
+   ],
+   "p_one": 0.1064,
+   "n_ev": 36,
+   "k": 13
+  },
+  ">=0.3": {
+   "mu": 0.0105,
+   "ci": [
+    -0.0116,
+    0.0325
+   ],
+   "p_one": 0.1525,
+   "n_ev": 31,
+   "k": 9
+  }
+ },
+ "type": {
+  "in-track": {
+   "mu": 0.0394,
+   "ci": [
+    0.0246,
+    0.0543
+   ],
+   "p_one": 0.0,
+   "n_ev": 123,
+   "k": 35
+  }
+ },
+ "calib": {
+  "full_learn": {
+   "map": [
+    -3.243,
+    0.152
+   ],
+   "meo": "not available (no neighbour UCT in e17K3 rows)",
+   "qzss": "not available (no neighbour UCT in e17K3 rows)",
+   "leo": "not available (no neighbour UCT in e17K3 rows)",
+   "all": "not available (no neighbour UCT in e17K3 rows)"
+  },
+  "full_lin_learn": {
+   "map": [
+    -3.241,
+    0.152
+   ],
+   "meo": "not available (no neighbour UCT in e17K3 rows)",
+   "qzss": "not available (no neighbour UCT in e17K3 rows)",
+   "leo": "not available (no neighbour UCT in e17K3 rows)",
+   "all": "not available (no neighbour UCT in e17K3 rows)"
+  },
+  "tracklet_learn": {
+   "map": [
+    -3.14,
+    0.164
+   ],
+   "meo": "not available (no neighbour UCT in e17K3 rows)",
+   "qzss": "not available (no neighbour UCT in e17K3 rows)",
+   "leo": "not available (no neighbour UCT in e17K3 rows)",
+   "all": "not available (no neighbour UCT in e17K3 rows)"
+  },
+  "tracklet_lin_learn": {
+   "map": [
+    -3.139,
+    0.164
+   ],
+   "meo": "not available (no neighbour UCT in e17K3 rows)",
+   "qzss": "not available (no neighbour UCT in e17K3 rows)",
+   "leo": "not available (no neighbour UCT in e17K3 rows)",
+   "all": "not available (no neighbour UCT in e17K3 rows)"
+  }
+ },
+ "qzss_dv": {
+  "n": 54,
+  "median_factor": 1.115,
+  "p90_factor": 14.842,
+  "within_1p5": 0.722,
+  "spearman": 0.812,
+  "same_side_5cm": 0.981
+ },
+ "cap": {
+  "meo": {
+   "eligible": 93,
+   "selected": 90
+  },
+  "qzss": {
+   "eligible": 54,
+   "selected": 23
+  },
+  "leo": {
+   "eligible": 16,
+   "selected": 13
+  }
+ }
+}

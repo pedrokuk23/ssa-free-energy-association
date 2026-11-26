@@ -1,0 +1,7 @@
+v3_full_s0.05_seed5_K41 done
+v3_full_s0.5_seed5_K41 done
+v3_tracklet_s0.05_seed5_K41 done
+v3_tracklet_s0.5_seed5_K41 done
+v3_full_s0.5_seed6_K41_mis done
+v3_full_s0.5_seed6_K41_mis_be0.40 done
+ok

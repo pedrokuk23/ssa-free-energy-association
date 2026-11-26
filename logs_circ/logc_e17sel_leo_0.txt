@@ -1,0 +1,23 @@
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 5 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 58 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 16 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 1 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+1/13 (253s)
+2/13 (500s)
+3/13 (751s)
+4/13 (1001s)
+5/13 (1254s)
+6/13 (1505s)
+7/13 (1756s)
+8/13 (2004s)
+9/13 (2256s)
+10/13 (2505s)
+11/13 (2755s)
+12/13 (3002s)
+13/13 (3254s)
+ok e17K3_e17sel_leo_tracklet_s0.05_seed17_c0of1.json 3253.6045377254486
+FIM

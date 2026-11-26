@@ -1,0 +1,5 @@
+esperando GPU livre Tue Nov 24 04:14:16 PM -03 2026
+inicio Tue Nov 24 04:14:16 PM -03 2026
+onda 1 fim Wed Nov 25 06:09:57 AM -03 2026
+onda 2 fim Wed Nov 25 04:44:50 PM -03 2026
+TUDO Wed Nov 25 04:46:02 PM -03 2026

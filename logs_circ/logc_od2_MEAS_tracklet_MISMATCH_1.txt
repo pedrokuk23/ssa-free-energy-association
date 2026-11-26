@@ -1,0 +1,15 @@
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 1 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 5 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 58 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 16 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+25/150 (478s) nees_med 829.3
+50/150 (897s) nees_med 841.7
+75/150 (1339s) nees_med 829.3
+100/150 (1761s) nees_med 841.7
+125/150 (2272s) nees_med 823.3
+150/150 (2767s) nees_med 805.1
+ok e11_rows_od2_tracklet_s0.5_seed41_K41_mis.json {'N': 150, 's_vI': 0.5, 'seed': 41, 'meas': 'tracklet', 'mismatch': True, 'nobs': 6, 'cov_infl': 1.0, 'tag': 'od2', 'complete': True, 'nees_median': 805.0522014252041, 'nees_p90': 9188.086743553053, 'seconds': 2767.3434195518494}

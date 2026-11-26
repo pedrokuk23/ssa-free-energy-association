@@ -1,6 +1,6 @@
 # Per-event result files and detector scans are archived on Zenodo (see README); they are not tracked in git.
 *_rows_*
-*_c[0-9]of[0-9].json
+*_c[0-9]*of[0-9]*.json
 e15_scan_*
 *.partial.json
 __pycache__/

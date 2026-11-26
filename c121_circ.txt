@@ -1,0 +1,68 @@
+== sens_learn_CTRLu
+pooled_DL_HKSJ 0.0387 [0.024, 0.0534] 0.0 tau 0.0
+pooled_HKSJ_trunc 0.0387 [0.0199, 0.0575] 0.0001 tau 0.0
+pooled_PM 0.0387 [0.024, 0.0534] 0.0 tau 0.0
+pooled_REML 0.0387 [0.024, 0.0534] 0.0 tau 0.0
+unpooled_PM 0.0436 [0.029, 0.0582] 0.0 tau 0.0198
+unpooled_PM_trunc 0.0436 [0.029, 0.0582] 0.0 tau 0.0198
+sat_mean_t 0.0419 None 0.0 tau None
+event_CR2 0.0387 [0.0236, 0.0538] 0.0 tau None
+ - meo 0.0236 [-0.0024, 0.0496] 0.034 k 7
+ - qzss 0.0451 [0.029, 0.0612] 0.0 k 31
+ - leo 0.0376 [0.0215, 0.0537] 0.0 k 32
+== sens_learn_CTRLp
+pooled_DL_HKSJ 0.0062 [-0.001, 0.0133] 0.0437 tau 0.0
+pooled_HKSJ_trunc 0.0062 [-0.0021, 0.0144] 0.0699 tau 0.0
+pooled_PM 0.0062 [-0.001, 0.0133] 0.0437 tau 0.0
+pooled_REML 0.0061 [-0.001, 0.0132] 0.044 tau 0.0019
+unpooled_PM 0.0061 [0.0004, 0.0119] 0.019 tau 0.0076
+unpooled_PM_trunc 0.0061 [0.0004, 0.0119] 0.019 tau 0.0076
+sat_mean_t 0.0052 None 0.0857 tau None
+event_CR2 0.0062 [-0.0022, 0.0145] 0.0721 tau None
+ - meo 0.0229 [0.0091, 0.0367] 0.0033 k 7
+ - qzss 0.0007 [-0.0059, 0.0074] 0.4123 k 31
+ - leo 0.0058 [-0.0021, 0.0136] 0.0724 k 32
+== sens_learn_IMM
+pooled_DL_HKSJ 0.0192 [0.0078, 0.0307] 0.0008 tau 0.0
+pooled_HKSJ_trunc 0.0192 [0.0067, 0.0318] 0.0018 tau 0.0
+pooled_PM 0.0192 [0.0078, 0.0307] 0.0008 tau 0.0
+pooled_REML 0.0197 [0.0082, 0.0312] 0.0007 tau 0.0083
+unpooled_PM 0.028 [0.0173, 0.0387] 0.0 tau 0.0192
+unpooled_PM_trunc 0.028 [0.0173, 0.0387] 0.0 tau 0.0192
+sat_mean_t 0.0222 None 0.0004 tau None
+event_CR2 0.0192 [0.0061, 0.0324] 0.0027 tau None
+ - meo -0.0069 [-0.0287, 0.0148] 0.768 k 7
+ - qzss 0.0278 [0.0162, 0.0394] 0.0 k 31
+ - leo 0.0206 [0.0083, 0.0328] 0.0009 k 32
+== variance {'draw_within_event': 0.1727, 'event_within_sat': 0.00963, 'between_sat_means': 0.00291, 'implied_event_component': 0.00531}
+== off 1.5-2.0 {'learn': 0.5916, 'CTRLu': 0.5379, 'CTRLp': 0.5788, 'IMM': 0.5685, 'lin_learn': 0.5821} {'mu': 0.0537, 'ci': [0.0313, 0.076], 'p_one': 0.0, 'n_ev': 126}
+== off 2.0-2.5 {'learn': 0.6026, 'CTRLu': 0.568, 'CTRLp': 0.6012, 'IMM': 0.5878, 'lin_learn': 0.6052} {'mu': 0.0346, 'ci': [0.0095, 0.0596], 'p_one': 0.0041, 'n_ev': 126}
+== off 2.5-3.0 {'learn': 0.6232, 'CTRLu': 0.5906, 'CTRLp': 0.6199, 'IMM': 0.6038, 'lin_learn': 0.6241} {'mu': 0.0326, 'ci': [0.0027, 0.0625], 'p_one': 0.0167, 'n_ev': 126}
+== ties {'learn': 0.0, 'CTRLu': 0.0, 'CTRL': 0.0, 'CTRLp': 0.0, 'IMM': 0.0, 'GM': 0.0, 'UKF': 0.0}
+== dv >=0.05 {'mu': 0.0387, 'ci': [0.024, 0.0534], 'p_one': 0.0, 'n_ev': 126, 'k': 35}
+== dv >=0.1 {'mu': 0.0342, 'ci': [0.0198, 0.0485], 'p_one': 0.0, 'n_ev': 112, 'k': 32}
+== dv >=0.2 {'mu': 0.0194, 'ci': [-0.0128, 0.0516], 'p_one': 0.1064, 'n_ev': 36, 'k': 13}
+== dv >=0.3 {'mu': 0.0105, 'ci': [-0.0116, 0.0325], 'p_one': 0.1525, 'n_ev': 31, 'k': 9}
+== type in-track {'mu': 0.0394, 'ci': [0.0246, 0.0543], 'p_one': 0.0, 'n_ev': 123, 'k': 35}
+== calib full_learn map [-3.243, 0.152]
+  meo not available (no neighbour UCT in e17K3 rows)
+  qzss not available (no neighbour UCT in e17K3 rows)
+  leo not available (no neighbour UCT in e17K3 rows)
+  all not available (no neighbour UCT in e17K3 rows)
+== calib full_lin_learn map [-3.241, 0.152]
+  meo not available (no neighbour UCT in e17K3 rows)
+  qzss not available (no neighbour UCT in e17K3 rows)
+  leo not available (no neighbour UCT in e17K3 rows)
+  all not available (no neighbour UCT in e17K3 rows)
+== calib tracklet_learn map [-3.14, 0.164]
+  meo not available (no neighbour UCT in e17K3 rows)
+  qzss not available (no neighbour UCT in e17K3 rows)
+  leo not available (no neighbour UCT in e17K3 rows)
+  all not available (no neighbour UCT in e17K3 rows)
+== calib tracklet_lin_learn map [-3.139, 0.164]
+  meo not available (no neighbour UCT in e17K3 rows)
+  qzss not available (no neighbour UCT in e17K3 rows)
+  leo not available (no neighbour UCT in e17K3 rows)
+  all not available (no neighbour UCT in e17K3 rows)
+== qzss_dv {'n': 54, 'median_factor': 1.115, 'p90_factor': 14.842, 'within_1p5': 0.722, 'spearman': 0.812, 'same_side_5cm': 0.981}
+== cap {'meo': {'eligible': 93, 'selected': 90}, 'qzss': {'eligible': 54, 'selected': 23}, 'leo': {'eligible': 16, 'selected': 13}}

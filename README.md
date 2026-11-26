@@ -34,6 +34,22 @@ tracklets); the E6c tracklet results for MEO and QZSS therefore come from the re
 `EQ_SQRT=1`, the defaults); `CIRC_MEAN=0 EQ_SQRT=0` reproduces the original runs. `run22_circ.sh` repeats every
 tracklet scoring with the fix; full-state results are unaffected because `ev()` does not use either step for them.
 
+The rerun finished on 25 November 2026 and its outputs replace the tracklet files under their original names
+(`e11_rows_*tracklet*`, `e12_rows_tracklet_*`, `e12K_tracklet_*_cNof3.json`, `e17K3_*_tracklet_*`, `e11_rows_pd*`,
+`e11_rows_od2_*` and the summaries `e11_summary.json`, `e12_summary_seed*.json`, `e12K_summary.json`, `e14_recal.json`,
+`e19_pd_summary.json`, `e23_*.json`, `e25_summary.json`); the rerun logs are in `logs_circ/`. The original files are
+kept in `superseded_pre_angle_fix/`. The E6c confirmatory scores `e17K_*` were not rerun: `e17K_analyze.py` still
+reproduces the primary analysis as frozen (+0.026). The corrected E6c analysis, reported in the paper as a declared
+sensitivity analysis, uses the rescored `e17K3_*` rows (full-state rows identical, tracklet rows corrected):
+
+    python e27_circ_table.py         # corrected E6c: primary (+0.039), secondary tests, Table E6c (e27_circ_summary.json, e27_circ_table.json)
+    python e20_circ.py               # corrected E6c sensitivity (meta-analytic models, offsets, dv, cap): e20_circ.json, c121_circ.txt
+
+The tracklet calibration of E6c and the near-confuser check (F2) of `e17K2_*` were not repeated with the corrected
+scores (the rescoring stores neither the neighbours' own UCTs nor the F2 field); the paper reports them for full-state
+UCTs only. `e12K_summary.json` was recomputed locally from the three corrected tracklet chunks (the summary written on
+the server also counted the six superseded chunks).
+
 ## Git repository and Zenodo deposit
 
 The git repository holds the code, plans, freeze record, summaries and figure script (about 7 MB). The Zenodo deposit
@@ -51,8 +67,8 @@ repository root.
 | E5 Study B | `PREREG_E5v3.md` | `e11_numeric.py` (`run4.sh`) | `e11_analyze.py` | `e11_rows_*`, `e11_summary.json` |
 | E6a / E6b (DORIS) | `PREREG_E6.md`, `PREREG_E6b.md` | `e12_fetch.py`, `e12_qc.py`, `e12_score.py` | `e12_analyze.py`, `e12_pool.py` | `e12_rows_*`, `e12_summary*.json` |
 | E6s (post hoc) | `PREREG_E6s.md` | `e12_scoreK.py` | `e12K_analyze.py` | `e12K_*`, `e12K_summary.json` |
-| E6c (confirmatory) | `PREREG_E6c.md`, `PREREG_E6c.freeze.json`, `frozen_E6c/` | `e13_detect.py`, `e15_*.py`, `e17_gnss_events.py`, `e17_labels.py`, `e17_select.py`, `e17_scoreK.py` | `e17K_analyze.py`, `e17K_table.py` | `e17*_*.json`, `e17K_summary.json` |
-| Review analyses (exploratory) | addenda 1–2 of `PREREG_E6c.md` | `e17_scoreK2.py`, `e17_scoreK3.py`, `e19_*`, `e21_conf.py`, `e22_od.py`, `e24_decomp.py` (`run19.sh`–`run21.sh`) | `e17K2_analyze.py`, `e20_p1.py`, `e23_analyze.py`, `e25_k3_analyze.py` | `e17K2_*`, `e17K3_*`, `e19_*`, `e20_*`, `e21_*`, `e23_*`, `e24_*`, `e25_summary.json` |
+| E6c (confirmatory) | `PREREG_E6c.md`, `PREREG_E6c.freeze.json`, `frozen_E6c/` | `e13_detect.py`, `e15_*.py`, `e17_gnss_events.py`, `e17_labels.py`, `e17_select.py`, `e17_scoreK.py` | `e17K_analyze.py`, `e17K_table.py` (as frozen); `e27_circ_analyze.py`, `e27_circ_table.py` (corrected) | `e17*_*.json`, `e17K_summary.json`, `e27_circ_*.json` |
+| Review analyses (exploratory) | addenda 1–2 of `PREREG_E6c.md` | `e17_scoreK2.py`, `e17_scoreK3.py`, `e19_*`, `e21_conf.py`, `e22_od.py`, `e24_decomp.py` (`run19.sh`–`run21.sh`) | `e17K2_analyze.py`, `e20_p1.py`, `e20_circ.py`, `e23_analyze.py`, `e25_k3_analyze.py` | `e17K2_*`, `e17K3_*`, `e19_*`, `e20_*`, `e21_*`, `e23_*`, `e24_*`, `e25_summary.json` |
 
 Shared modules: `forces3b.py` (J2–J4, Sun/Moon, SRP, drag), `numprop.py` / `numprop_gpu.py` (CPU/GPU propagators),
 `orbit.py`, `e6_nonlinear.py`, `e9_numeric.py`, `e10_numeric.py`, `e11_numeric.py` (free-energy estimators: Gaussian

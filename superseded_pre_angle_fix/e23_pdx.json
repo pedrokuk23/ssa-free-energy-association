@@ -1,0 +1,380 @@
+{
+ "pdx_full_s0.5_seed31_K41_x": {
+  "n": 300,
+  "meta": {
+   "N": 300,
+   "s_vI": 0.5,
+   "seed": 31,
+   "K0": 41,
+   "K1": 41,
+   "J": 12,
+   "meas": "full",
+   "mismatch": false,
+   "sig_beta_est": 0.2,
+   "tag": "pdx",
+   "nj": 12,
+   "T_days": 1.0,
+   "cov_scale": 1.0,
+   "signed": false,
+   "psgn": 0.9,
+   "extra": true,
+   "cnt7": {
+    "active": 0,
+    "refused": 0,
+    "ev_calls": 0,
+    "active_rel": 0,
+    "refused_rel": 0
+   },
+   "complete": true,
+   "n_done": 300,
+   "seconds": 7908.321211099625
+  },
+  "metrics": {
+   "UKF": {
+    "acc_big": 0.753,
+    "acc_cross": 0.741,
+    "aucJ_big": 0.671,
+    "auc_D_big": 0.269,
+    "det_big": 0.841
+   },
+   "GM": {
+    "acc_big": 0.688,
+    "acc_cross": 0.741,
+    "aucJ_big": 0.693,
+    "auc_D_big": 0.25,
+    "det_big": 0.844
+   },
+   "CTRL": {
+    "acc_big": 0.688,
+    "acc_cross": 0.667,
+    "aucJ_big": 0.668,
+    "auc_D_big": 0.282,
+    "det_big": 0.798
+   },
+   "CTRLu": {
+    "acc_big": 0.714,
+    "acc_cross": 0.741,
+    "aucJ_big": 0.686,
+    "auc_D_big": 0.289,
+    "det_big": 0.789
+   },
+   "iso_lin": {
+    "acc_big": 0.714,
+    "acc_cross": 0.741,
+    "aucJ_big": 0.765,
+    "auc_D_big": 0.257,
+    "det_big": 0.855,
+    "logloss": 0.127
+   },
+   "lin_learn": {
+    "acc_big": 0.74,
+    "acc_cross": 0.926,
+    "aucJ_big": 0.785,
+    "auc_D_big": 0.257,
+    "det_big": 0.884,
+    "logloss": 0.109
+   },
+   "learn": {
+    "acc_big": 0.779,
+    "acc_cross": 0.926,
+    "aucJ_big": 0.785,
+    "auc_D_big": 0.257,
+    "det_big": 0.883,
+    "logloss": 0.109
+   },
+   "CTRLp": {
+    "acc_big": 0.74,
+    "acc_cross": 0.926,
+    "aucJ_big": 0.778,
+    "auc_D_big": 0.256,
+    "det_big": 0.841
+   },
+   "IMM": {
+    "acc_big": 0.688,
+    "acc_cross": 0.63,
+    "aucJ_big": 0.722,
+    "auc_D_big": 0.279,
+    "det_big": 0.838
+   },
+   "IMMl": {
+    "acc_big": 0.662,
+    "acc_cross": 0.63,
+    "aucJ_big": 0.776,
+    "auc_D_big": 0.28,
+    "det_big": 0.839
+   },
+   "IMMd": {
+    "acc_big": 0.831,
+    "acc_cross": 1.0,
+    "aucJ_big": 0.814,
+    "auc_D_big": 0.293,
+    "det_big": 0.837
+   }
+  },
+  "diff": {
+   "acc_big:learn-CTRLu": [
+    0.065,
+    -0.0723,
+    0.208,
+    0.216
+   ],
+   "acc_big:learn-lin_learn": [
+    0.039,
+    -0.0112,
+    0.1045,
+    0.345
+   ],
+   "acc_big:learn-CTRLp": [
+    0.039,
+    0.0,
+    0.1124,
+    0.331
+   ],
+   "acc_big:learn-IMM": [
+    0.091,
+    -0.0782,
+    0.2237,
+    0.22
+   ],
+   "acc_big:learn-IMMl": [
+    0.117,
+    -0.0667,
+    0.2742,
+    0.159
+   ],
+   "acc_big:learn-IMMd": [
+    -0.052,
+    -0.1721,
+    0.0589,
+    0.887
+   ],
+   "aucJ_big:learn-CTRLu": [
+    0.099,
+    0.0198,
+    0.1899,
+    0.007
+   ],
+   "aucJ_big:learn-lin_learn": [
+    0.001,
+    -0.0433,
+    0.0543,
+    0.497
+   ],
+   "aucJ_big:learn-CTRLp": [
+    0.008,
+    -0.036,
+    0.06,
+    0.352
+   ],
+   "aucJ_big:learn-IMM": [
+    0.063,
+    -0.0048,
+    0.1465,
+    0.036
+   ],
+   "aucJ_big:learn-IMMl": [
+    0.009,
+    -0.0495,
+    0.0672,
+    0.349
+   ],
+   "aucJ_big:learn-IMMd": [
+    -0.029,
+    -0.0806,
+    0.015,
+    0.892
+   ]
+  }
+ },
+ "pdx_tracklet_s0.5_seed31_K41_x": {
+  "n": 300,
+  "meta": {
+   "N": 300,
+   "s_vI": 0.5,
+   "seed": 31,
+   "K0": 41,
+   "K1": 41,
+   "J": 12,
+   "meas": "tracklet",
+   "mismatch": false,
+   "sig_beta_est": 0.2,
+   "tag": "pdx",
+   "nj": 12,
+   "T_days": 1.0,
+   "cov_scale": 1.0,
+   "signed": false,
+   "psgn": 0.9,
+   "extra": true,
+   "cnt7": {
+    "active": 96666387,
+    "refused": 74569365,
+    "ev_calls": 19800,
+    "active_rel": 14745124,
+    "refused_rel": 11342
+   },
+   "complete": true,
+   "n_done": 300,
+   "seconds": 11543.781126022339
+  },
+  "metrics": {
+   "UKF": {
+    "acc_big": 0.09,
+    "acc_cross": 0.08,
+    "aucJ_big": 0.512,
+    "auc_D_big": 0.387,
+    "det_big": 0.642
+   },
+   "GM": {
+    "acc_big": 0.567,
+    "acc_cross": 0.44,
+    "aucJ_big": 0.632,
+    "auc_D_big": 0.295,
+    "det_big": 0.767
+   },
+   "CTRL": {
+    "acc_big": 0.567,
+    "acc_cross": 0.44,
+    "aucJ_big": 0.61,
+    "auc_D_big": 0.313,
+    "det_big": 0.73
+   },
+   "CTRLu": {
+    "acc_big": 0.522,
+    "acc_cross": 0.44,
+    "aucJ_big": 0.591,
+    "auc_D_big": 0.312,
+    "det_big": 0.741
+   },
+   "iso_lin": {
+    "acc_big": 0.582,
+    "acc_cross": 0.48,
+    "aucJ_big": 0.671,
+    "auc_D_big": 0.298,
+    "det_big": 0.743,
+    "logloss": 0.94
+   },
+   "lin_learn": {
+    "acc_big": 0.672,
+    "acc_cross": 0.76,
+    "aucJ_big": 0.771,
+    "auc_D_big": 0.295,
+    "det_big": 0.824,
+    "logloss": 1.005
+   },
+   "learn": {
+    "acc_big": 0.672,
+    "acc_cross": 0.76,
+    "aucJ_big": 0.743,
+    "auc_D_big": 0.294,
+    "det_big": 0.822,
+    "logloss": 1.005
+   },
+   "CTRLp": {
+    "acc_big": 0.701,
+    "acc_cross": 0.8,
+    "aucJ_big": 0.757,
+    "auc_D_big": 0.303,
+    "det_big": 0.76
+   },
+   "IMM": {
+    "acc_big": 0.104,
+    "acc_cross": 0.08,
+    "aucJ_big": 0.508,
+    "auc_D_big": 0.405,
+    "det_big": 0.63
+   },
+   "IMMl": {
+    "acc_big": 0.09,
+    "acc_cross": 0.16,
+    "aucJ_big": 0.508,
+    "auc_D_big": 0.416,
+    "det_big": 0.645
+   },
+   "IMMd": {
+    "acc_big": 0.164,
+    "acc_cross": 0.16,
+    "aucJ_big": 0.528,
+    "auc_D_big": 0.376,
+    "det_big": 0.671
+   }
+  },
+  "diff": {
+   "acc_big:learn-CTRLu": [
+    0.149,
+    -0.0807,
+    0.459,
+    0.117
+   ],
+   "acc_big:learn-lin_learn": [
+    0.0,
+    -0.0391,
+    0.0588,
+    0.813
+   ],
+   "acc_big:learn-CTRLp": [
+    -0.03,
+    -0.1373,
+    0.0769,
+    0.769
+   ],
+   "acc_big:learn-IMM": [
+    0.567,
+    0.2829,
+    0.8155,
+    0.0
+   ],
+   "acc_big:learn-IMMl": [
+    0.582,
+    0.2875,
+    0.8269,
+    0.0
+   ],
+   "acc_big:learn-IMMd": [
+    0.507,
+    0.2328,
+    0.8044,
+    0.0
+   ],
+   "aucJ_big:learn-CTRLu": [
+    0.152,
+    0.0483,
+    0.2702,
+    0.003
+   ],
+   "aucJ_big:learn-lin_learn": [
+    -0.028,
+    -0.0774,
+    -0.0008,
+    0.991
+   ],
+   "aucJ_big:learn-CTRLp": [
+    -0.014,
+    -0.0612,
+    0.0166,
+    0.734
+   ],
+   "aucJ_big:learn-IMM": [
+    0.235,
+    0.1443,
+    0.3439,
+    0.0
+   ],
+   "aucJ_big:learn-IMMl": [
+    0.235,
+    0.1283,
+    0.3686,
+    0.0
+   ],
+   "aucJ_big:learn-IMMd": [
+    0.215,
+    0.0955,
+    0.3254,
+    0.0
+   ]
+  },
+  "rule7": {
+   "frac_all": 0.7714,
+   "frac_relevant": 0.0008
+  }
+ }
+}

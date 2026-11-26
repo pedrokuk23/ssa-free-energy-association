@@ -1,0 +1,35 @@
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 5 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 58 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 16 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+/home/trainer/venv/lib/python3.13/site-packages/numba_cuda/numba/cuda/dispatcher.py:748: NumbaPerformanceWarning: Grid size 1 will likely result in GPU under-utilization due to low occupancy.
+  warn(errors.NumbaPerformanceWarning(msg))
+25/626 (253s)
+50/626 (503s)
+75/626 (755s)
+100/626 (1000s)
+125/626 (1235s)
+150/626 (1451s)
+175/626 (1671s)
+200/626 (1899s)
+225/626 (2123s)
+250/626 (2351s)
+275/626 (2577s)
+300/626 (2795s)
+325/626 (3017s)
+350/626 (3238s)
+375/626 (3475s)
+400/626 (3715s)
+425/626 (3952s)
+450/626 (4202s)
+475/626 (4433s)
+500/626 (4679s)
+525/626 (4915s)
+550/626 (5090s)
+575/626 (5256s)
+600/626 (5422s)
+625/626 (5587s)
+ok e12_rows_tracklet_s0.05_seed11.json 5593.430207252502
+FIM

@@ -5,9 +5,11 @@ import json, os, sys, runpy, contextlib, io
 import numpy as np
 sys.path.insert(0, os.getcwd())
 from e12K_analyze import load_K, per_event, by_sat, METH
-out = {}
+out = {}; _M0 = list(METH)
 with contextlib.redirect_stdout(io.StringIO()):                 # e17K_analyze runs at import; its output file is unchanged
-    G = runpy.run_path("e17K_analyze.py")
+    # audit 2026-11-26: with the angle fix, the E6c forest uses e27_circ_analyze.py (e17K3 rows) when present
+    G = runpy.run_path("e27_circ_analyze.py" if os.path.exists("e27_circ_analyze.py") else "e17K_analyze.py")
+METH[:] = _M0                                                   # e27 extends the shared method list
 d = G["val"]("learn", "corr") - G["val"]("CTRLu", "corr"); y, v, n, us = by_sat(d, G["sats"])
 out["e6c"] = {str(u): [round(float(yy), 4), int(nn), round(float(np.sqrt(vv)), 4)] for u, yy, nn, vv in zip(us, y, n, v)}
 for meas in ("full", "tracklet"):

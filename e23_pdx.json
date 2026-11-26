@@ -206,175 +206,175 @@
    "psgn": 0.9,
    "extra": true,
    "cnt7": {
-    "active": 96666387,
-    "refused": 74569365,
+    "active": 96548709,
+    "refused": 74673890,
     "ev_calls": 19800,
-    "active_rel": 14745124,
-    "refused_rel": 11342
+    "active_rel": 14727076,
+    "refused_rel": 10797
    },
    "complete": true,
    "n_done": 300,
-   "seconds": 11543.781126022339
+   "seconds": 2121.8719539642334
   },
   "metrics": {
    "UKF": {
-    "acc_big": 0.09,
-    "acc_cross": 0.08,
-    "aucJ_big": 0.512,
-    "auc_D_big": 0.387,
-    "det_big": 0.642
+    "acc_big": 0.134,
+    "acc_cross": 0.12,
+    "aucJ_big": 0.53,
+    "auc_D_big": 0.383,
+    "det_big": 0.669
    },
    "GM": {
     "acc_big": 0.567,
-    "acc_cross": 0.44,
-    "aucJ_big": 0.632,
-    "auc_D_big": 0.295,
-    "det_big": 0.767
+    "acc_cross": 0.48,
+    "aucJ_big": 0.639,
+    "auc_D_big": 0.297,
+    "det_big": 0.769
    },
    "CTRL": {
     "acc_big": 0.567,
     "acc_cross": 0.44,
-    "aucJ_big": 0.61,
-    "auc_D_big": 0.313,
-    "det_big": 0.73
+    "aucJ_big": 0.619,
+    "auc_D_big": 0.309,
+    "det_big": 0.742
    },
    "CTRLu": {
-    "acc_big": 0.522,
+    "acc_big": 0.537,
     "acc_cross": 0.44,
-    "aucJ_big": 0.591,
-    "auc_D_big": 0.312,
-    "det_big": 0.741
+    "aucJ_big": 0.583,
+    "auc_D_big": 0.309,
+    "det_big": 0.746
    },
    "iso_lin": {
     "acc_big": 0.582,
     "acc_cross": 0.48,
-    "aucJ_big": 0.671,
+    "aucJ_big": 0.647,
     "auc_D_big": 0.298,
-    "det_big": 0.743,
-    "logloss": 0.94
+    "det_big": 0.753,
+    "logloss": 0.606
    },
    "lin_learn": {
     "acc_big": 0.672,
     "acc_cross": 0.76,
-    "aucJ_big": 0.771,
-    "auc_D_big": 0.295,
-    "det_big": 0.824,
-    "logloss": 1.005
+    "aucJ_big": 0.754,
+    "auc_D_big": 0.298,
+    "det_big": 0.822,
+    "logloss": 0.667
    },
    "learn": {
-    "acc_big": 0.672,
+    "acc_big": 0.687,
     "acc_cross": 0.76,
-    "aucJ_big": 0.743,
-    "auc_D_big": 0.294,
+    "aucJ_big": 0.732,
+    "auc_D_big": 0.298,
     "det_big": 0.822,
-    "logloss": 1.005
+    "logloss": 0.667
    },
    "CTRLp": {
-    "acc_big": 0.701,
-    "acc_cross": 0.8,
-    "aucJ_big": 0.757,
-    "auc_D_big": 0.303,
-    "det_big": 0.76
+    "acc_big": 0.716,
+    "acc_cross": 0.84,
+    "aucJ_big": 0.748,
+    "auc_D_big": 0.304,
+    "det_big": 0.764
    },
    "IMM": {
-    "acc_big": 0.104,
-    "acc_cross": 0.08,
-    "aucJ_big": 0.508,
-    "auc_D_big": 0.405,
-    "det_big": 0.63
+    "acc_big": 0.134,
+    "acc_cross": 0.16,
+    "aucJ_big": 0.525,
+    "auc_D_big": 0.397,
+    "det_big": 0.652
    },
    "IMMl": {
-    "acc_big": 0.09,
+    "acc_big": 0.134,
     "acc_cross": 0.16,
-    "aucJ_big": 0.508,
-    "auc_D_big": 0.416,
-    "det_big": 0.645
+    "aucJ_big": 0.543,
+    "auc_D_big": 0.426,
+    "det_big": 0.631
    },
    "IMMd": {
     "acc_big": 0.164,
     "acc_cross": 0.16,
-    "aucJ_big": 0.528,
-    "auc_D_big": 0.376,
-    "det_big": 0.671
+    "aucJ_big": 0.512,
+    "auc_D_big": 0.379,
+    "det_big": 0.658
    }
   },
   "diff": {
    "acc_big:learn-CTRLu": [
     0.149,
-    -0.0807,
-    0.459,
-    0.117
+    -0.0883,
+    0.45,
+    0.155
    ],
    "acc_big:learn-lin_learn": [
-    0.0,
-    -0.0391,
-    0.0588,
-    0.813
+    0.015,
+    -0.0564,
+    0.0639,
+    0.741
    ],
    "acc_big:learn-CTRLp": [
     -0.03,
-    -0.1373,
-    0.0769,
-    0.769
+    -0.1487,
+    0.0725,
+    0.73
    ],
    "acc_big:learn-IMM": [
-    0.567,
-    0.2829,
-    0.8155,
+    0.552,
+    0.2394,
+    0.8,
     0.0
    ],
    "acc_big:learn-IMMl": [
-    0.582,
-    0.2875,
-    0.8269,
+    0.552,
+    0.2333,
+    0.8036,
     0.0
    ],
    "acc_big:learn-IMMd": [
-    0.507,
-    0.2328,
-    0.8044,
+    0.522,
+    0.2368,
+    0.8,
     0.0
    ],
    "aucJ_big:learn-CTRLu": [
-    0.152,
-    0.0483,
-    0.2702,
-    0.003
+    0.149,
+    0.0241,
+    0.262,
+    0.013
    ],
    "aucJ_big:learn-lin_learn": [
-    -0.028,
-    -0.0774,
-    -0.0008,
-    0.991
+    -0.022,
+    -0.0916,
+    0.047,
+    0.785
    ],
    "aucJ_big:learn-CTRLp": [
-    -0.014,
-    -0.0612,
-    0.0166,
-    0.734
+    -0.016,
+    -0.0897,
+    0.0568,
+    0.7
    ],
    "aucJ_big:learn-IMM": [
-    0.235,
-    0.1443,
-    0.3439,
-    0.0
+    0.207,
+    0.0811,
+    0.3186,
+    0.002
    ],
    "aucJ_big:learn-IMMl": [
-    0.235,
-    0.1283,
-    0.3686,
-    0.0
+    0.188,
+    0.0471,
+    0.3019,
+    0.005
    ],
    "aucJ_big:learn-IMMd": [
-    0.215,
-    0.0955,
-    0.3254,
+    0.22,
+    0.0893,
+    0.3317,
     0.0
    ]
   },
   "rule7": {
-   "frac_all": 0.7714,
-   "frac_relevant": 0.0008
+   "frac_all": 0.7734,
+   "frac_relevant": 0.0007
   }
  }
 }
