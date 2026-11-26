@@ -1,0 +1,4 @@
+K= 1  IPL p(0,1,4)= 0.0000 1.9947 0.00000 | exact (same mixture) 0.7324 0.2499 0.02722 | log-ratio -11.498 +2.077 -108.206 | integral 1.0000
+K=11  IPL p(0,1,4)= 0.7338 0.2903 0.02293 | exact (same mixture) 0.7001 0.2879 0.02314 | log-ratio +0.047 +0.008 -0.009 | integral 1.0089
+K=41  IPL p(0,1,4)= 0.7314 0.2508 0.02988 | exact (same mixture) 0.7312 0.2507 0.02988 | log-ratio +0.000 +0.000 +0.000 | integral 1.0001
+K=81  IPL p(0,1,4)= 0.7321 0.2499 0.02733 | exact (same mixture) 0.7321 0.2499 0.02733 | log-ratio +0.000 +0.000 +0.000 | integral 1.0000

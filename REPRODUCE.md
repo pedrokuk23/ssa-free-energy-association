@@ -59,4 +59,5 @@ Audit additions (26 November 2026):
 | E6c text, dominant term | posterior weight of the largest hypothesis term (median 22%), CTRLp-Lin decision agreement (96%/97%) | `e28_dominant.py` | `e28_dominant.txt` |
 | Table s5meta, E6c text | primary with pi1 from navigation satellites only (+0.037) | `e29_p1nav.py` | `e29_p1nav.txt` |
 | Supplement S4 (vii)-(ix) | post hoc diagnostics of E6a/E6b (model error, control objects, ceiling, dv and type) | `e12_diag.py` | `gpu/e12_diag.json` |
-
+| Supplement S6, frame rotations | log-evidence under 30 rotations about the polar axis (3 objects) | `e30_frame_rotation.py` | `e30_frame_rotation.txt` |
+| Supplement S6, IPL normalization | scalar benchmark of the evidence formula (y = x^2 + noise) | `e31_ipl_scalar.py` | `e31_ipl_scalar.txt` |

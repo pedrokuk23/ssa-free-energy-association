@@ -1,7 +1,7 @@
 # Free-energy association of maneuvering space objects — code, plans and results
 
 Companion package of the manuscript *"Free-energy association of maneuvering space objects: Relating statistical
-evidence and control distance"* (P. Kukulka de Albuquerque, J. Cavalcanti, L. Galembeck), submitted to *Acta Astronautica*.
+evidence and control distance"* (P. Kukulka de Albuquerque, J. Cavalcanti, L. Galembeck), prepared for submission to *Acta Astronautica*.
 
 It contains the estimators, every simulation and real-data pipeline, the dated analysis plans with their amendments,
 the E6c freeze record, the per-event result files, and the scripts that regenerate every table and figure of the
