@@ -61,3 +61,4 @@ Audit additions (26 November 2026):
 | Supplement S4 (vii)-(ix) | post hoc diagnostics of E6a/E6b (model error, control objects, ceiling, dv and type) | `e12_diag.py` | `gpu/e12_diag.json` |
 | Supplement S6, frame rotations | log-evidence under 30 rotations about the polar axis (3 objects) | `e30_frame_rotation.py` | `e30_frame_rotation.txt` |
 | Supplement S6, IPL normalization | scalar benchmark of the evidence formula (y = x^2 + noise) | `e31_ipl_scalar.py` | `e31_ipl_scalar.txt` |
+| Supplement S6, covariance check | positive definiteness and conditioning of all matrices passed to loggauss (48 full scorings) | `e32_covariance_check.py` | `e32_covariance_check.txt` |

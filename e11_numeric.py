@@ -114,7 +114,8 @@ def loggauss(r, S):
 
 
 def msq(P):
-    if EQ_SQRT:     # symmetric (rotation-equivariant) square root (audit fix, 2026-11-24; EQ_SQRT=0 reproduces the original runs)
+    if EQ_SQRT:     # unscaled spectral factor V diag(sqrt(lam)) of the symmetrized covariance; paired sigma points are
+                    # insensitive to eigenvector sign and order (audit fix, 2026-11-24; EQ_SQRT=0 reproduces the original runs)
         lam, V = np.linalg.eigh(0.5 * (P + np.swapaxes(P, -1, -2))); lam = np.clip(lam, 0.0, None)
         return V * np.sqrt(lam)[..., None, :]
     d = np.sqrt(np.clip(np.einsum("...ii->...i", P), 1e-30, None)); C = P / (d[..., :, None] * d[..., None, :])

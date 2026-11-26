@@ -31,7 +31,8 @@ the tails of the prediction (the superseded Study B files also predate the regul
 and geosynchronous orbits, however, the maneuver-hypothesis blocks of Prop, Lin and CTRLp span wide arcs of right
 ascension, and their tracklet evidence in the original E6c runs is degenerate (median F of order -1e10 nats for MEO
 tracklets); the E6c tracklet results for MEO and QZSS therefore come from the rerun.
-`e11_numeric.py` now averages angles on the circle and uses a symmetric square root (switches `CIRC_MEAN=1`,
+`e11_numeric.py` now averages angles on the circle and builds the sigma points from the unscaled spectral factor V diag(sqrt(lambda)) of the
+symmetrized covariance (paired points insensitive to eigenvector sign and order) (switches `CIRC_MEAN=1`,
 `EQ_SQRT=1`, the defaults); `CIRC_MEAN=0 EQ_SQRT=0` reproduces the original runs. `run22_circ.sh` repeats every
 tracklet scoring with the fix; full-state results are unaffected because `ev()` does not use either step for them.
 
@@ -50,6 +51,8 @@ sensitivity analysis, uses the rescored `e17K3_*` rows (full-state rows identica
 
 The one-sided lower bound printed by these scripts (0.0265) is computed from the mean and interval already rounded to four
 decimals; computed from unrounded values it is 0.026479, reported in the paper as +0.026.
+The summaries round p-values to four decimals, so very small values appear as 0.0; the paper reports them as
+p < 0.001 (corrected E6c: one-sided t p = 2.9e-6; sign-flip Monte Carlo p below 1e-4 with 200 000 sign vectors).
 
 The tracklet calibration of E6c and the near-confuser check (F2) of `e17K2_*` were not repeated with the corrected
 scores (the rescoring stores neither the neighbours' own UCTs nor the F2 field); the paper reports them for full-state
