@@ -27,7 +27,7 @@ below was checked against these files.
 | Table paired | E5 Study A, pre-specified tests | `e10_analyze.py` | `e10_summary.json` |
 | Table prior | E5 prior ablation and recalibration | `e10_analyze.py`, `e14_recal.py` | `e10_summary.json`, `e14_recal.json` |
 | Table s3imm, S3 text | Study B with CTRLp/IMM; IPLF-5; OD catalog | `e23_analyze.py`, `e19_pd_analyze.py` | `e23_pdx.json`, `e23_pdit5.json`, `e23_od2.json`, `e19_pd_summary.json` |
-| Tables e6, paired3 | E6a/E6b pooled and primary tests | `e12_analyze.py`, `e12_pool.py` | `e12_summary.json`, `e12_summary_seed11.json`, `e12_summary_seedpool.json` |
+| Tables e6, paired3 | E6a/E6b pooled and primary tests | `e12_analyze.py`, `e12_pool.py` | `e12_summary_seed7.json`, `e12_summary_seed11.json`, `e12_summary_seedpool.json` |
 | Fig. S1 | E6s forest plot | `figures/forest_se.py`, `figures/make_figures.py` (`fig_forest_e6s`) | `e12K_summary.json`, `figures/forest_se.json` |
 | Table s5meta, S5 text | E6c sensitivity, offset, Δv, real confusers, all eligible events (corrected); full-state calibration and near confusers | `e20_circ.py`, `e25_k3_analyze.py`; `e20_p1.py`, `e17K2_analyze.py` (full state) | `e20_circ.json`, `e25_summary.json`, `e21_conf_*.json`; `e20_p1.json`, `e17K2_summary.json` |
 | S6 | Evidence decomposition and independent reference | `e24_decomp.py` | `e24_full_s0.5.json`, `e24_tracklet_s0.5.json` |
@@ -44,10 +44,19 @@ E6c re-scoring (`run19.sh`, `run20.sh`) about 1–1.5 days. All random draws are
     python e23_analyze.py 'e11_rows_pdx_*_seed31_*_x.json' e23_pdx.json
     python e23_analyze.py 'e11_rows_pdit5_*_seed31_*_x.json' e23_pdit5.json
     python e23_analyze.py 'e11_rows_od2_*_seed41_*.json' e23_od2.json
-    SEED=7 python e12_analyze.py      # writes e12_summary_seed7.json (= e12_summary.json, E6a)
+    SEED=7 python e12_analyze.py      # writes e12_summary_seed7.json (E6a)
     SEED=11 python e12_analyze.py     # E6b
     python e12_pool.py; SEED=pool python e12_analyze.py
 
 `e20_p1.py` and `e25_k3_analyze.py` also write the plain-text logs `c121.txt` and `c125.txt`. The file
 `e17K_e17_events_gnss_full_s0.05_seed13_c0of31.json` is the three-event software test run before the E6c freeze
 (Amendment 1); it is not used by any analysis.
+
+Audit additions (26 November 2026):
+
+| Item | Content | Script | Output |
+|---|---|---|---|
+| E6c text, dominant term | posterior weight of the largest hypothesis term (median 22%), CTRLp-Lin decision agreement (96%/97%) | `e28_dominant.py` | `e28_dominant.txt` |
+| Table s5meta, E6c text | primary with pi1 from navigation satellites only (+0.037) | `e29_p1nav.py` | `e29_p1nav.txt` |
+| Supplement S4 (vii)-(ix) | post hoc diagnostics of E6a/E6b (model error, control objects, ceiling, dv and type) | `e12_diag.py` | `gpu/e12_diag.json` |
+

@@ -172,3 +172,14 @@ Real confusers (nearest navigation satellite in the precise orbits, median 6500 
 learned-prior methods with MEO tracklets (0.13-0.17).
 Simulation (e11 EXTRA2, e22_od, e24_decomp): see Supplementary S3/S6 of the manuscript; OD-catalog runs first version (TAG od) had
 a defect (track ignored the fitted density factor) and were superseded by TAG od2.
+
+## Addendum 3 (audit, 2026-11-24/26; NOT confirmatory)
+A pre-submission code audit found that the tracklet evidence depended on the orientation of the inertial frame
+(arithmetic mean of the right ascension and a non-equivariant matrix square root in e11_numeric.ev()). Full-state scores
+are unaffected. Every tracklet run (E5 Study B, E6a, E6b, E6s, E6c rescoring e17K3, sensitivity runs) was rescored with the
+corrected code and the same draws (run22_circ.sh). The confirmatory analysis as frozen is unchanged (e17K_analyze.py:
++0.026 [0.012, 0.041], lower bound +0.014); with the corrected tracklet scores (e27_circ_analyze.py, declared sensitivity
+analysis) the primary is +0.039 [0.024, 0.053], one-sided lower bound +0.026. Tracklet numbers in addenda 1-2 above
+(e.g. MEO tracklet acceptance 0.012, real-confuser acceptance 0.13-0.17, tracklet calibration 13.5/8.2, Prop-CTRLp,
+Prop-IMM, IMMl/IMMd) used the defective scores and are superseded by e27_circ_summary.json, e20_circ.json and
+e25_summary.json; the tracklet calibration and the F2 near-confuser check were not repeated (full-state values stand).

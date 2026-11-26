@@ -18,7 +18,7 @@ authors:
 license: MIT
 doi: "10.5281/zenodo.24509633"
 version: "1.0.0"
-date-released: "2026-11-24"
+date-released: "2026-11-26"
 keywords: [space situational awareness, data association, maneuver detection, free energy, pre-registration]
 preferred-citation:
   type: article

@@ -98,7 +98,7 @@ def fig_e10(path="e10_summary.json"):
     a.set_yticks(range(len(order)), [VL[v][0] for v in order[::-1]]); a.grid(axis="y", visible=False)
     base = S[k5]["base_logloss"]; a.axvline(base, color=ink2, lw=0.8, ls="--")
     a.text(base, len(order) - 0.55, " base rate", fontsize=7, color=ink2, va="top")
-    a.set(xlabel="Log-loss of $P$(maneuver | UCT)", title="(c) Calibration by prior ($\\sigma_{v_I}$ = 0.5 m/s)")
+    a.set(xlabel="Log-loss of $P$(mnv | $z$)", title="(c) Calibration by prior ($\\sigma_{v_I}$ = 0.5 m/s)")
     # (d) acceptance of the largest maneuvers
     a = ax[1, 1]; mm = ["GM", "CTRLu", "lin_learn", "learn"]
     for yy, X in enumerate(mm):

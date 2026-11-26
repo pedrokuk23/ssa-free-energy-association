@@ -1,0 +1,10 @@
+('full', 'F') n= 2520  peso dominante: mediana=0.380  q10=0.135  q25=0.229  fracao>0.9=0.15  fracao>0.5=0.34
+('full', 'F3') n= 2260  peso dominante: mediana=1.000  q10=1.000  q25=1.000  fracao>0.9=1.00  fracao>0.5=1.00
+('full', 'M') n= 2520  peso dominante: mediana=0.218  q10=0.101  q25=0.147  fracao>0.9=0.13  fracao>0.5=0.14
+('full', 'Mn') n= 2520  peso dominante: mediana=0.225  q10=0.104  q25=0.149  fracao>0.9=0.13  fracao>0.5=0.15
+('tracklet', 'F') n= 2520  peso dominante: mediana=0.064  q10=0.028  q25=0.040  fracao>0.9=0.03  fracao>0.5=0.07
+('tracklet', 'F3') n= 2260  peso dominante: mediana=1.000  q10=0.576  q25=1.000  fracao>0.9=0.86  fracao>0.5=0.91
+('tracklet', 'M') n= 2520  peso dominante: mediana=0.228  q10=0.032  q25=0.099  fracao>0.9=0.02  fracao>0.5=0.05
+('tracklet', 'Mn') n= 2520  peso dominante: mediana=0.219  q10=0.026  q25=0.082  fracao>0.9=0.02  fracao>0.5=0.05
+full offset_M - offset_Mn [nats]: mediana=0.000  IQR=[-0.149, 0.208]  |.|>1 nat: 0.067 ; decisao conjunta igual CTRLp x Lin: 0.956
+tracklet offset_M - offset_Mn [nats]: mediana=-0.009  IQR=[-0.246, 0.113]  |.|>1 nat: 0.212 ; decisao conjunta igual CTRLp x Lin: 0.965

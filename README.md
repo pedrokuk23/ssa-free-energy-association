@@ -25,8 +25,9 @@ CPU propagator (several times slower); Amendment 2 of `PREREG_E6c.md` reports th
 
 A pre-submission audit found that `ev()` in `e11_numeric.py` averaged the right ascension of the sigma points
 arithmetically and used a non-equivariant matrix square root, which made the evidence of optical-tracklet UCTs depend
-on the orientation of the inertial frame. The effect is large for the single moment-matched Gaussian (UKF, IMM) and
-negligible for the mixture-based scores in LEO (Prop, Lin, CTRLu: at most 0.1 nat). After the two-day gaps of medium Earth
+on the orientation of the inertial frame. The effect is large for the single moment-matched Gaussian (UKF, IMM). For the mixture-based scores in LEO (Prop,
+Lin, CTRLu) the median change is below 0.001 nat, but 10-17% of the target scores change by more than 0.1 nat, mostly in
+the tails of the prediction (the superseded Study B files also predate the regularization rule of Amendment 3). After the two-day gaps of medium Earth
 and geosynchronous orbits, however, the maneuver-hypothesis blocks of Prop, Lin and CTRLp span wide arcs of right
 ascension, and their tracklet evidence in the original E6c runs is degenerate (median F of order -1e10 nats for MEO
 tracklets); the E6c tracklet results for MEO and QZSS therefore come from the rerun.
@@ -44,6 +45,11 @@ sensitivity analysis, uses the rescored `e17K3_*` rows (full-state rows identica
 
     python e27_circ_table.py         # corrected E6c: primary (+0.039), secondary tests, Table E6c (e27_circ_summary.json, e27_circ_table.json)
     python e20_circ.py               # corrected E6c sensitivity (meta-analytic models, offsets, dv, cap): e20_circ.json, c121_circ.txt
+    python e28_dominant.py > e28_dominant.txt   # weight of the dominant hypothesis term; CTRLp-Lin decision agreement
+    python e29_p1nav.py > e29_p1nav.txt         # primary with pi1 from navigation satellites only (+0.037)
+
+The one-sided lower bound printed by these scripts (0.0265) is computed from the mean and interval already rounded to four
+decimals; computed from unrounded values it is 0.026479, reported in the paper as +0.026.
 
 The tracklet calibration of E6c and the near-confuser check (F2) of `e17K2_*` were not repeated with the corrected
 scores (the rescoring stores neither the neighbours' own UCTs nor the F2 field); the paper reports them for full-state
@@ -73,7 +79,7 @@ repository root.
 Shared modules: `forces3b.py` (J2–J4, Sun/Moon, SRP, drag), `numprop.py` / `numprop_gpu.py` (CPU/GPU propagators),
 `orbit.py`, `e6_nonlinear.py`, `e9_numeric.py`, `e10_numeric.py`, `e11_numeric.py` (free-energy estimators: Gaussian
 mixtures, maneuver hypotheses, iterated posterior linearization), `e14_recal.py` (recalibration).
-`gpu/` holds the result summaries of the GPU runs of E4/E5; `data/` the maneuver labels.
+`gpu/` holds result summaries of GPU runs of E4-E6 (the E6 ones predate the angle fix and are kept for the record); `data/` the maneuver labels.
 Other scripts (`e5_*`, `e7*`, `e8_*`, `hybrid.py`, `diag*.py`, `probe*.sh`, `*_plots.py`) are development studies that
 preceded the reported ones; they are kept for completeness and are not used for any reported number.
 Comments inside the scripts are partly in Portuguese.
@@ -98,8 +104,9 @@ estimator file used in the confirmatory runs is `frozen_E6c/e11_numeric.py` plus
 
 What the freeze record does not cover: the analysis scripts (`e17K_analyze.py` and the inference functions in
 `e12K_analyze.py`) were not hashed, so their being unchanged since freezing cannot be checked from the record. As a
-check of the whole chain, the exploratory rescoring with the current code reproduced all 252 confirmatory
-per-event values exactly (`e17K2_analyze.py`, maximum relative difference 0.0), and `e17K_analyze.py` reproduces
+check of the whole chain, the exploratory rescoring with the code of that time (before the angle fix) reproduced all 252
+confirmatory per-event values exactly (`e17K2_analyze.py`, maximum relative difference 0.0); the later rescoring with
+the angle fix (`e17K3_*`) reproduces the full-state values exactly, and `e17K_analyze.py` reproduces
 the primary result from the shipped per-event files.
 
 Two notes on the plan text: the sign-flip test is exact (all sign vectors) for 12 satellites (E6s) and uses
