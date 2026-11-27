@@ -61,33 +61,52 @@ scores (the rescoring stores neither the neighbours' own UCTs nor the F2 field);
 UCTs only. `e12K_summary.json` was recomputed locally from the three corrected tracklet chunks (the summary written on
 the server also counted the six superseded chunks).
 
-## Gaussian log-density with per-matrix validation (audit revision 3, 26 November 2026)
+## Gaussian log-density with per-matrix validation (audit revisions 3 and 4, 26 November 2026)
 
 `gauss_logpdf.py` replaces the `loggauss` routine of `e10_numeric.py` and `e11_numeric.py`. The original routine ignored
 the sign of `slogdet` (an indefinite matrix gave a finite, too large density) and, when one matrix of a batch was
-singular, added the same regularization to every matrix of the batch. The new routine checks each matrix: non-finite
-matrices (or residuals) give -inf; matrices whose correlation-scaled Cholesky factorization fails are repaired one by
-one (symmetrized, eigenvalues of the correlation matrix clipped at 1e-12 times the largest absolute eigenvalue);
-valid matrices are evaluated with the original arithmetic (LU solve and slogdet), so their values are bit-identical to
-the archived runs. Rejections and repairs are counted in `gauss_logpdf.STATS`. `SAFE_LOGGAUSS=0` restores the original
-routine for reproduction only. The frozen copies in `frozen_E6c/` are unchanged.
+singular, added the same regularization to every matrix of the batch. The new routine checks each matrix:
 
-    python test_gauss_logpdf.py      # valid, indefinite, non-finite and mixed batches; batch-composition and permutation invariance
+* non-finite matrices (or residuals) give -inf;
+* symmetry is measured in correlation scale, a = max |S_ij - S_ji| / sqrt(|S_ii S_jj|): a = 0, the matrix is used as
+  given; 0 < a <= 1e-8 (`ASYM_TOL`), the symmetrized matrix is evaluated; a > 1e-8, the matrix is rejected (-inf);
+  the largest a and the calling lines are recorded (`STATS["asym_max"]`, `ASYM_SOURCES`);
+* matrices whose correlation-scaled Cholesky factorization fails are repaired one by one (eigenvalues of the
+  correlation matrix clipped at 1e-12 times the largest absolute eigenvalue);
+* valid matrices are evaluated with the original arithmetic (LU solve and slogdet); an LU failure is handled per matrix.
 
-Two checks show that the archived results are not affected:
+In `e11_numeric.py`, `_inv` and `_solve` now regularize only the failing matrix of a batch, and a hypothesis whose
+evidence is undefined (for example every mixture component rejected) gets free energy +inf instead of NaN. All
+counters are in `gauss_logpdf.STATS`. `SAFE_LOGGAUSS=0` restores the original routine for reproduction only. The
+frozen copies in `frozen_E6c/` are unchanged.
+
+    python test_gauss_logpdf.py      # valid, indefinite, asymmetric, non-finite and mixed batches; batch-composition,
+                                     # permutation and transposition invariance; per-matrix _inv/_solve; invalid hypothesis
+
+Diagnostic checks (sampled, not an exhaustive rerun of the campaign):
 
     python e32_covariance_check.py . x 3,4,5,6,7,8 > e32_covariance_check.txt   # stress test, 48 scorings, six LEO objects (one run, ~3 min)
-    bash run33.sh                    # E6c production settings, real events, both UCT types: e33_*.txt (about 1 h per MEO/QZSS draw on one core)
+    bash run33.sh                    # E6c production settings, real events, both UCT types: e33_*.txt
+    python e34_rounding_bound.py 0.5,1 > e34_rounding_bound.txt                  # bounds on the primary (seconds)
 
 `e33_e6c_covariance_check.py` regenerates draws of `e17_scoreK3.py` with the E6c settings (K1 = 41, refine = False,
-ric_cov UCT covariances), checks them against the archived `e17K3_*` rows, and scores each draw with the original and
-the new routine, reporting the largest score difference, decision changes and the smallest score margin. The
-correlation-scaled condition numbers it reports (up to about 5e9) indicate potential sensitivity to floating-point
-errors; no uniform bound on the log-density error is claimed.
-Regenerated draws match the archived rows within 1e-4 (relative), except the QZSS tracklet draw, where two learned-prior
-mixture scores differ by 0.5 and 0.9 nat and all other methods are bit-identical (`e33_qzss_tracklet_per_method.txt`,
-from `ONLY_PROD=1`, which prints per-method scores and skips the second routine). The archive was computed on GPU and
-this check on CPU; both log-density routines agree exactly there, so the difference does not come from them.
+ric_cov UCT covariances), scores each draw with the original and the new routine, and reports, per method, the
+unrounded target (M) and neighbour (Mn) scores of both routines and of the archived `e17K3_*` rows, the decisions
+with the analysis rule (1 / 0.5 tie / 0) of both routines and of the archive, the counters above, and (with
+`PERTURB_EPS`) the scores and decisions after scaling the predicted covariance by (1 + eps).
+
+Results (`e33_r4_*.txt`): the two routines agree at the stored score precision (largest difference 2e-7 nat, on scores up to 1e6 nat) with no
+change of decision; no matrix is rejected or repaired; the tracklet covariances have rounding-level asymmetry only
+(at most 4e-10 in correlation scale, from line 170 of `e11_numeric.py`); no batch fallback is triggered.
+Against the archive: With full-state UCTs (8 draws: LEO events 0, 8, 9 x2; MEO 4; QZSS 0; files `e33_r4_*_full.txt`) M and Mn of every method matched the archive at its stored precision (relative difference 0), no decision changed, and the 1e-15 perturbation changed nothing. With tracklets, the Prop ('learn') and Lin ('lin_learn') scores of 3 of the 13
+draws differ from the archive (up to 1 and 2.7 nat) and change by similar amounts under eps = 1e-15: the hard gate of
+the iterated posterior linearization (d^2 < 49 in `ev`) makes them discontinuous, so rounding differences between
+computing environments can move them (likely cause, not confirmed). No Prop decision changed; the Lin decision of the
+QZSS draw did. `e34_rounding_bound.py` shows that counting every tracklet draw with a Prop margin below 0.5 nat as
+wrong (9% of the tracklet draws) removes the primary gain, which is a worst case, not a measured effect; with the
+tracklet half set to zero the primary is +0.023 [0.012, 0.034] (full-state half alone: +0.046 [0.024, 0.068]).
+The correlation-scaled condition numbers (up to about 3e10 in e32 and 5e9 in e33) indicate potential sensitivity to
+floating-point errors; no uniform bound on the log-density error is claimed.
 
 ## Git repository and Zenodo deposit
 

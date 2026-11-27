@@ -1,4 +1,4 @@
-"""Batched Gaussian log-density with per-matrix validation (audit revision 3, items R01-R02, 2026-11-26).
+"""Batched Gaussian log-density with per-matrix validation (audit revisions 3 and 4, 2026-11-26).
 
 loggauss(r, S) returns log N(r; 0, S) over the broadcast batch dimensions of r (...,n) and S (...,n,n).
 
@@ -6,6 +6,11 @@ loggauss(r, S) returns log N(r; 0, S) over the broadcast batch dimensions of r (
   with exactly the same arithmetic as the original routine (LU solve and slogdet), so their values are bit-identical
   to the archived runs.
 * Matrices with a non-finite entry (or a non-finite residual) are rejected: log-density -inf.
+* Symmetry is checked in correlation scale, a = max_ij |S_ij - S_ji| / sqrt(|S_ii S_jj|) (revision 4, R4-01).
+  a = 0: the matrix is used as given. 0 < a <= ASYM_TOL (rounding-level asymmetry): the symmetrized matrix
+  (S + S^T)/2 is validated and evaluated. a > ASYM_TOL: the matrix is not a covariance and is rejected (-inf).
+  The largest a seen is kept in STATS["asym_max"]; the positive-definiteness test is always applied to a
+  symmetric matrix, so the result does not depend on which triangle a factorization reads.
 * Matrices that are finite but not positive definite are repaired individually: symmetrized, scaled to correlation
   form, eigenvalues clipped at REPAIR_TOL times the largest absolute eigenvalue, then evaluated by Cholesky. They are never mixed with
   the other matrices of the batch, so the result for one matrix does not depend on the rest of the batch.
@@ -14,18 +19,22 @@ loggauss(r, S) returns log N(r; 0, S) over the broadcast batch dimensions of r (
 SAFE_LOGGAUSS=0 restores the original routine (sign of slogdet ignored; one regularization shared by the whole batch)
 and is kept only to reproduce the archived runs; it is not recommended.
 """
-import os
+import os, sys
 import numpy as np
 
 SAFE = os.environ.get("SAFE_LOGGAUSS", "1") == "1"
 REPAIR_TOL = 1e-12
-STATS = dict(calls=0, matrices=0, rejected_nonfinite=0, repaired_nonpd=0, asymmetric=0)
+ASYM_TOL = float(os.environ.get("ASYM_TOL", "1e-8"))
+STATS = dict(calls=0, matrices=0, rejected_nonfinite=0, repaired_nonpd=0, asymmetric=0, symmetrized=0,
+             rejected_asymmetric=0, asym_max=0.0, lu_fallback=0)
 _LOG2PI = np.log(2 * np.pi)
+ASYM_SOURCES = {}   # caller 'file:line' -> [number of asymmetric matrices, largest asymmetry] (diagnostic of their origin)
 
 
 def reset_stats():
     for k in STATS:
-        STATS[k] = 0
+        STATS[k] = 0.0 if k == "asym_max" else 0
+    ASYM_SOURCES.clear()
 
 
 def loggauss_legacy(r, S):
@@ -92,19 +101,36 @@ def loggauss(r, S):
     idx = np.flatnonzero(fin)
     if len(idx):
         Sf = Sb[idx]
-        asym = np.abs(Sf - np.swapaxes(Sf, 1, 2)).max((1, 2)) > 1e-12 * np.abs(Sf).max((1, 2))
-        STATS["asymmetric"] += int(np.sum(asym))
-        pd = _pd_mask(Sf)
-        good = idx[pd]
-        if len(good):
-            try:
-                if len(good) == len(Sb):
-                    out[:] = _plain(rb, Sb)                  # common case: same call as the original routine
-                else:
-                    out[good] = _plain(rb[good], Sb[good])   # numpy factorizes each matrix independently
-            except np.linalg.LinAlgError:                    # exactly singular LU pivot of a PD matrix (not observed)
-                for i in good:
-                    out[i] = _repaired(rb[i], Sb[i])
-        for i in idx[~pd]:
-            out[i] = _repaired(rb[i], Sb[i]); STATS["repaired_nonpd"] += 1
+        d = np.sqrt(np.abs(np.einsum("...ii->...i", Sf))); d = np.where(d > 0, d, 1.0)
+        a = (np.abs(Sf - np.swapaxes(Sf, 1, 2)) / (d[:, :, None] * d[:, None, :])).max((1, 2))
+        STATS["asymmetric"] += int(np.sum(a > 0)); STATS["asym_max"] = max(STATS["asym_max"], float(a.max()))
+        if (a > 0).any():
+            f = sys._getframe(1); key = f"{os.path.basename(f.f_code.co_filename)}:{f.f_lineno}"
+            c = ASYM_SOURCES.setdefault(key, [0, 0.0]); c[0] += int(np.sum(a > 0)); c[1] = max(c[1], float(a.max()))
+        big = a > ASYM_TOL
+        out[idx[big]] = -np.inf; STATS["rejected_asymmetric"] += int(np.sum(big))
+        small = (a > 0) & ~big
+        if small.any():                                                # symmetrize rounding-level asymmetry
+            Sb = Sb.copy()                                             # never write into the caller's array
+            Sb[idx[small]] = 0.5 * (Sb[idx[small]] + np.swapaxes(Sb[idx[small]], 1, 2))
+            STATS["symmetrized"] += int(np.sum(small))
+        keep = idx[~big]
+        if len(keep):
+            pd = _pd_mask(Sb[keep])
+            good = keep[pd]
+            if len(good):
+                try:
+                    if len(good) == len(Sb):
+                        out[:] = _plain(rb, Sb)                  # common case: same call as the original routine
+                    else:
+                        out[good] = _plain(rb[good], Sb[good])   # numpy factorizes each matrix independently
+                except np.linalg.LinAlgError:                    # exactly singular LU pivot of a PD matrix (not observed)
+                    STATS["lu_fallback"] += 1
+                    for i in good:                               # per matrix: only the failing one is repaired
+                        try:
+                            out[i] = _plain(rb[i], Sb[i])
+                        except np.linalg.LinAlgError:
+                            out[i] = _repaired(rb[i], Sb[i])
+            for i in keep[~pd]:
+                out[i] = _repaired(rb[i], Sb[i]); STATS["repaired_nonpd"] += 1
     return out.reshape(sh)

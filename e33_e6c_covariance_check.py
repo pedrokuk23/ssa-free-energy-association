@@ -3,7 +3,12 @@ Re-runs e17_scoreK3.py scoring (same events, seeds, refine=False, UCTs from make
 draws, with (a) the production loggauss, instrumented (non-finite and non-positive-definite matrices, batch fallback
 count), and (b) a per-matrix safe loggauss (finiteness, Cholesky in correlation scale, individual eigenvalue repair).
 Compares scores with the archived e17K3 rows and the joint decisions (target vs neighbour) between (a) and (b).
-Usage: MEAS=tracklet|full python e33_e6c_covariance_check.py <events.json> <eid,eid,...> <ndraws> [pkgdir]"""
+Revision 4 (R4-01, R4-03): unrounded target (M) and neighbour (Mn) scores of both routines and of the archive, per
+method; decisions with the analysis rule (1 / 0.5 tie / 0) compared new vs legacy and new vs archive; asymmetry
+counters and their source lines; fallback counters of _inv/_solve (gauss_logpdf.STATS).
+PERTURB_EPS=e1,e2,... also rescores each draw (original routine) with the predicted covariance scaled by (1+eps),
+to measure the sensitivity of the scores and decisions to rounding-level differences between platforms.
+Usage: MEAS=tracklet|full [K0DRAW=k0] [PERTURB_EPS=...] python e33_e6c_covariance_check.py <events.json> <eid,eid,...> <ndraws> [pkgdir]"""
 import os, sys, json, time
 P = sys.argv[4] if len(sys.argv) > 4 else "."
 sys.path.insert(0, P); os.chdir(P)
@@ -57,9 +62,12 @@ def safe_loggauss(r, S, tol=1e-12):
         out[i] = -0.5 * (u @ u + 2 * np.sum(np.log(np.diag(Lc))) + 2 * np.sum(np.log(d)) + n * np.log(2 * np.pi))
     return out.reshape(sh)
 def score_all(trk, trkN, z, R, m, pr):
-    return dict(M=slim(trk.scores(z, R, m, pr, refine=False)), Mn=slim(trkN.scores(z, R, m, pr, refine=False)))
+    return dict(M=trk.scores(z, R, m, pr, refine=False), Mn=trkN.scores(z, R, m, pr, refine=False))
+def dec(Ft, Fn):   # decision rule of e27_circ_analyze / e12K_analyze: 1 if target better, 0.5 tie, 0 otherwise
+    return 1.0 if Ft < Fn else (0.5 if Ft == Fn else 0.0)
 if __name__ == "__main__":
     EVF, eids, KD = sys.argv[1], sys.argv[2].split(","), int(sys.argv[3]); MEAS = X.MEAS; s_vI, seed = 0.05, 17
+    K0 = int(os.environ.get("K0DRAW", "0"))
     allev = json.load(open(EVF))["events"]; L = X.load_labels()
     arch = {}
     import glob
@@ -70,7 +78,7 @@ if __name__ == "__main__":
         if e.get("regime", "LEO") != "LEO": NP.set_forces(1, e["epoch_j2000"], CRAM.get(e.get("prn", "G")[0], 0.02))
         else: NP.set_forces(0)
         x0 = np.array(e["x0"]); yT = np.array(e["yT"]); P0, en = prior_cov(x0, s_vI); Lp = np.linalg.cholesky(P0)
-        for k in range(KD):
+        for k in range(K0, K0 + KD):
             t = time.time()
             rng = np.random.default_rng(np.random.SeedSequence([seed, int(eid), k, MEAS == "tracklet", 17]))
             Xref = x0 - Lp @ rng.standard_normal(6); P0r, er = prior_cov(Xref, s_vI); trk = X.Track3(Xref, P0r, er)
@@ -82,11 +90,29 @@ if __name__ == "__main__":
             b = a if os.environ.get("ONLY_PROD") else None
             if b is None: X.loggauss = E.loggauss = NEW; b = score_all(trk, trkN, z, R, m, pr)
             X.loggauss, E.loggauss = prod_X, prod_E
-            ar = arch.get(eid, {}).get("draws", [None] * (k + 1))[k] if eid in arch and k < len(arch[eid]["draws"]) else None
-            rep = max(abs(a["M"][q] - ar["M"][q]) / max(1, abs(ar["M"][q])) for q in a["M"] if ar and q in ar["M"]) if ar else float("nan")
-            dmax = max(abs(a[s][q] - b[s][q]) for s in ("M", "Mn") for q in a[s])
-            flips = [q for q in a["M"] if (a["M"][q] < a["Mn"][q]) != (b["M"][q] < b["Mn"][q])]
-            marg = min(abs(a["M"][q] - a["Mn"][q]) for q in ("learn", "CTRLu"))
-            print(json.dumps(dict(ev=EVF, eid=eid, regime=e.get("regime", "LEO"), meas=MEAS, k=k, rel_diff_archive=rep, max_abs_diff_prod_vs_safe=dmax,
-                                  decision_flips=flips, min_margin_learn_ctrlu=marg, **({"per_method": {q: [a["M"][q], ar["M"].get(q)] for q in a["M"]}} if os.environ.get("ONLY_PROD") and ar else {}), sec=round(time.time() - t))), flush=True)
+            pert = {}
+            for ep in [float(v) for v in os.environ.get("PERTURB_EPS", "").split(",") if v]:
+                ev0 = X.ev                                   # rounding-level perturbation of the predicted covariance
+                X.ev = lambda meas, z_, R_, mT, PT, it=2, ep=ep, ev0=ev0: ev0(meas, z_, R_, mT, PT * (1 + ep), it)
+                c = score_all(trk, trkN, z, R, m, pr); X.ev = ev0
+                pert[repr(ep)] = dict(M=slim(c["M"]), Mn=slim(c["Mn"]))
+            ar = arch[eid]["draws"][k] if eid in arch and k < len(arch[eid]["draws"]) else None
+            meth = [q for q in KEEP if q in a["M"] and not q.startswith("pH1_")]
+            per = {}
+            for q in meth:
+                per[q] = dict(legacy=[a["M"][q], a["Mn"][q]], new=[b["M"][q], b["Mn"][q]],
+                              archive=[ar["M"].get(q), ar["Mn"].get(q)] if ar else None)
+            dmax = max(abs(a[s][q] - b[s][q]) for s in ("M", "Mn") for q in meth)
+            sa, sb = dict(M=slim(a["M"]), Mn=slim(a["Mn"])), dict(M=slim(b["M"]), Mn=slim(b["Mn"]))
+            rel = {s: max((abs(sa[s][q] - ar[s][q]) / max(1, abs(ar[s][q])) for q in meth if q in ar[s]), default=float("nan")) for s in ("M", "Mn")} if ar else None
+            flips_new_legacy = [q for q in meth if dec(sa["M"][q], sa["Mn"][q]) != dec(sb["M"][q], sb["Mn"][q])]
+            flips_arch = ({q: [dec(ar["M"][q], ar["Mn"][q]), dec(sa["M"][q], sa["Mn"][q]), dec(sb["M"][q], sb["Mn"][q])]
+                           for q in meth if q in ar["M"] and dec(ar["M"][q], ar["Mn"][q]) != dec(sb["M"][q], sb["Mn"][q])}) if ar else None
+            print(json.dumps(dict(ev=EVF, eid=eid, regime=e.get("regime", "LEO"), meas=MEAS, k=k,
+                                  rel_diff_archive_M=rel and rel["M"], rel_diff_archive_Mn=rel and rel["Mn"],
+                                  max_abs_diff_legacy_vs_new_unrounded=dmax, decision_changes_new_vs_legacy=flips_new_legacy,
+                                  decision_changes_vs_archive=flips_arch, per_method=per,
+                                  perturbed={ep: dict(scores=v, decisions={q: dec(v["M"][q], v["Mn"][q]) for q in meth}) for ep, v in pert.items()},
+                                  decisions_unperturbed={q: dec(sa["M"][q], sa["Mn"][q]) for q in meth}, sec=round(time.time() - t))), flush=True)
     print("STAT", json.dumps(ST)); print("STAT_NEW", json.dumps(getattr(sys.modules.get("gauss_logpdf"), "STATS", {})))
+    print("ASYM_SOURCES", json.dumps(getattr(sys.modules.get("gauss_logpdf"), "ASYM_SOURCES", {})))

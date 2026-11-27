@@ -88,22 +88,52 @@ def _reg(M):
     return M + eps[..., None, None] * np.eye(M.shape[-1])
 
 def _inv(M):
-    """inversa; só em matriz singular, regularização mínima (E6c, emenda 3)."""
+    """inversa; só em matriz singular, regularização mínima (E6c, emenda 3).
+    Audit revision 4 (R4-02): if the batched call fails, only the failing matrices are regularized (counted in
+    gauss_logpdf.STATS); the batch result is unchanged when no matrix fails, which is the case in the archived runs."""
     try:
         return np.linalg.inv(M)
     except np.linalg.LinAlgError:
-        return np.linalg.inv(_reg(M))
+        GL.STATS["inv_fallback"] += 1
+        n = M.shape[-1]; Mf = M.reshape(-1, n, n); out = np.empty_like(Mf)
+        for i, Mi in enumerate(Mf):
+            try:
+                out[i] = np.linalg.inv(Mi)
+            except np.linalg.LinAlgError:
+                out[i] = np.linalg.inv(_reg(Mi)); GL.STATS["inv_regularized"] += 1
+        return out.reshape(M.shape)
 
 def _solve(M, b):
+    """Same per-matrix policy as _inv (R4-02)."""
     try:
         return np.linalg.solve(M, b)
     except np.linalg.LinAlgError:
-        return np.linalg.solve(_reg(M), b)
+        GL.STATS["solve_fallback"] += 1
+        n = M.shape[-1]; sh = np.broadcast_shapes(M.shape[:-2], b.shape[:-2])
+        Mf = np.broadcast_to(M, sh + M.shape[-2:]).reshape(-1, n, n)
+        bf = np.broadcast_to(b, sh + b.shape[-2:]).reshape(-1, *b.shape[-2:]); out = np.empty(bf.shape)
+        for i in range(len(Mf)):
+            try:
+                out[i] = np.linalg.solve(Mf[i], bf[i])
+            except np.linalg.LinAlgError:
+                out[i] = np.linalg.solve(_reg(Mf[i]), bf[i]); GL.STATS["solve_regularized"] += 1
+        return out.reshape(sh + b.shape[-2:])
+
+def _invalid_guard(out):
+    """Revision 4: a hypothesis whose evidence is undefined (e.g. every mixture component rejected, -inf - (-inf))
+    is declared invalid: free energy +inf, posterior probability NaN, counted. Finite results are untouched."""
+    for k, v in list(out.items()):
+        if isinstance(v, float) and np.isnan(v) and not k.startswith("pH1_"):
+            out[k] = np.inf; GL.STATS["invalid_hypotheses"] += 1
+    return out
 
 # loggauss: batched Gaussian log-density with per-matrix validation (audit revision 3, R01-R02); see gauss_logpdf.py.
 # Valid (finite, positive-definite) matrices give bit-identical values to the original routine; SAFE_LOGGAUSS=0
 # restores the original routine, which is kept only to reproduce the archived runs.
 from gauss_logpdf import loggauss
+import gauss_logpdf as GL
+for _k in ("inv_fallback", "inv_regularized", "solve_fallback", "solve_regularized", "invalid_hypotheses"):
+    GL.STATS.setdefault(_k, 0)
 
 
 def msq(P):
@@ -223,7 +253,7 @@ class Track3(E.Track):
             lr = l1 - l0b
             out[name] = -(l0 + np.logaddexp(np.log1p(-p1), np.log(p1) + lr))
             out["pH1_" + name] = float(1 / (1 + np.exp(np.clip(np.log1p(-p1) - np.log(p1) - lr, -700, 700))))
-        return out
+        return _invalid_guard(out)
 
 # g = dY/dlog|Δv| precisa ser guardado: recalcula a partir de Bm/BP não é possível; injeta no __init__ do pai
 _orig_init = E.Track.__init__

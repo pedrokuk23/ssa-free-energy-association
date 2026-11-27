@@ -1,0 +1,3 @@
+DELTA 0.5 nat: {"tracklet_draws": 2520, "correct_decisions_turned_wrong": 234, "mu": -0.007, "ci": [-0.0263, 0.0123], "lower_one_sided_95": -0.0231, "p_one": 0.7659, "success": false}
+DELTA 1.0 nat: {"tracklet_draws": 2520, "correct_decisions_turned_wrong": 442, "mu": -0.0454, "ci": [-0.0666, -0.0242], "lower_one_sided_95": -0.063, "p_one": 0.9999, "success": false}
+tracklet half set to zero: {"mu": 0.0231, "ci": [0.012, 0.0342], "lower_one_sided_95": 0.0138, "p_one": 8.81e-05, "note": "HKSJ is scale-equivariant: half the full-state test (mu, CI, bound halved; p unchanged)"}

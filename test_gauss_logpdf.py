@@ -38,6 +38,29 @@ def main():
     rr = rng.standard_normal((4, 6)); Pk = P[:3]
     assert G.loggauss(rr[:, None], Pk).shape == (4, 3)
     assert np.array_equal(G.loggauss(rr[:, None], Pk), G.loggauss_legacy(rr[:, None], Pk))
+    # revision 4 (R4-01): asymmetry is measured in correlation scale and decides validity
+    G.reset_stats()
+    S_as = np.array([[1.0, 10.0], [0.0, 1.0]]); r1 = np.ones(2)
+    assert G.loggauss(r1, S_as) == -np.inf and G.loggauss(r1, S_as.T) == -np.inf, "grossly asymmetric: rejected, transpose-invariant"
+    assert G.STATS["rejected_asymmetric"] == 2 and G.STATS["asym_max"] == 10.0
+    A = P[7].copy(); A0 = A.copy(); A[0, 1] *= 1 + 1e-13                       # rounding-level asymmetry
+    v, vt = G.loggauss(x[7], A), G.loggauss(x[7], A.T)
+    assert v == vt == G.loggauss(x[7], 0.5 * (A + A.T)), "small asymmetry: symmetrized matrix evaluated"
+    assert abs(v - G.loggauss_legacy(x[7], A)) < 1e-9 * max(1, abs(v)) and G.STATS["symmetrized"] == 2
+    Pa = P.copy(); Pa[5, 0, 1] *= 1 + 1e-13; Pa0 = Pa.copy(); fa = G.loggauss(x, Pa)
+    assert np.array_equal(Pa, Pa0), "input array not modified"
+    assert np.array_equal(np.delete(fa, 5), np.delete(G.loggauss_legacy(x, P), 5)), "other matrices unchanged"
+    perm = rng.permutation(500); assert np.array_equal(G.loggauss(x[perm], Pa[perm]), fa[perm])
+    # revision 4 (R4-02): batched inverse/solve in e11 regularize only the failing matrix
+    import os; os.environ.setdefault("K1", "41"); import e11_numeric as X
+    Mb = np.stack([P[0], np.diag([0.0, 1, 1, 1, 1, 1]), P[1]]); bb = rng.standard_normal((3, 6, 1))
+    Xi = X._inv(Mb); Xs = X._solve(Mb, bb)
+    assert np.array_equal(Xi[0], np.linalg.inv(P[0])) and np.array_equal(Xi[2], np.linalg.inv(P[1]))
+    assert np.array_equal(Xs[0], np.linalg.solve(P[0], bb[0])) and np.array_equal(Xs[2], np.linalg.solve(P[1], bb[2]))
+    assert G.STATS["inv_regularized"] == 1 and G.STATS["solve_regularized"] == 1
+    # undefined evidence (all mixture components rejected) is declared an invalid hypothesis, not NaN
+    o = X._invalid_guard({"learn": float(np.nan), "pH1_learn": float(np.nan), "UKF": 3.0})
+    assert o["learn"] == np.inf and o["UKF"] == 3.0 and np.isnan(o["pH1_learn"]) and G.STATS["invalid_hypotheses"] == 1
     print("all tests passed", G.STATS)
 
 if __name__ == "__main__":
