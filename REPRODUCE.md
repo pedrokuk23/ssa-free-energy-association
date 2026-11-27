@@ -61,4 +61,6 @@ Audit additions (26 November 2026):
 | Supplement S4 (vii)-(ix) | post hoc diagnostics of E6a/E6b (model error, control objects, ceiling, dv and type) | `e12_diag.py` | `gpu/e12_diag.json` |
 | Supplement S6, frame rotations | log-evidence under 30 rotations about the polar axis (3 objects) | `e30_frame_rotation.py` | `e30_frame_rotation.txt` |
 | Supplement S6, IPL normalization | scalar benchmark of the evidence formula (y = x^2 + noise) | `e31_ipl_scalar.py` | `e31_ipl_scalar.txt` |
-| Supplement S6, covariance check | positive definiteness and conditioning of all matrices passed to loggauss (48 full scorings) | `e32_covariance_check.py` | `e32_covariance_check.txt` |
+| Supplement S6, covariance check | positive definiteness and conditioning of all matrices passed to loggauss (48 full scorings, one run; header records versions and hashes) | `e32_covariance_check.py` | `e32_covariance_check.txt` |
+| Supplement S6, E6c covariance check | E6c production settings on real LEO, MEO and QZSS events: archive reproduction, original vs validated loggauss, decision changes | `e33_e6c_covariance_check.py` (`run33.sh`) | `e33_full.txt`, `e33_tracklet.txt`, `e33_qzss_tracklet_per_method.txt` |
+| Supplement S6, loggauss tests | per-matrix validation, repair, rejection, batch invariance | `test_gauss_logpdf.py` | stdout |

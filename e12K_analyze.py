@@ -6,6 +6,10 @@ from scipy import stats
 METH = ["UKF", "GM", "CTRL", "CTRLu", "iso_lin", "lin_learn", "learn"]
 QUAD = ("CTRL", "CTRLu")
 
+def _pfmt(p):
+    """p-value kept to 4 decimals, or to 3 significant digits below 1e-3 (audit revision 3, R08: never print 0.0000)."""
+    p = float(p); return round(p, 4) if p >= 1e-3 else float(f"{p:.3g}")
+
 def hksj(y, v):
     """Efeitos aleatórios (DerSimonian-Laird) com correção HKSJ. y, v: efeitos e variâncias por satélite."""
     y = np.asarray(y, float); v = np.maximum(np.asarray(v, float), 1e-12); k = len(y)
@@ -16,7 +20,7 @@ def hksj(y, v):
     t = stats.t.ppf(0.975, k - 1)
     pi = stats.t.ppf(0.975, k - 2) * np.sqrt(tau2 + se ** 2) if k > 2 else np.nan
     return dict(k=k, mu=round(float(mu), 4), ci=[round(float(mu - t * se), 4), round(float(mu + t * se), 4)],
-                p_one=round(float(stats.t.sf(mu / se, k - 1)), 4), tau=round(float(np.sqrt(tau2)), 4),
+                p_one=_pfmt(stats.t.sf(mu / se, k - 1)), tau=round(float(np.sqrt(tau2)), 4),
                 pred=[round(float(mu - pi), 4), round(float(mu + pi), 4)], I2=round(float(max(0, (Q - (k - 1)) / Q)) if Q > 0 else 0.0, 3))
 
 def signflip(y, w):
@@ -27,7 +31,9 @@ def signflip(y, w):
     else:
         S = np.array(list(itertools.product([-1, 1], repeat=k)))
     null = (S * y) @ w / w.sum()
-    return round(float(np.mean(null >= obs - 1e-15)), 4)
+    b = int(np.sum(null >= obs - 1e-15))
+    # exact enumeration: b/2^k; Monte Carlo (k > 20): (b+1)/(N+1), so the estimate is never 0 (audit revision 3, R08)
+    return _pfmt(b / len(null) if k <= 20 else (b + 1) / (len(null) + 1))
 
 def jsc(a, b, m):
     return np.logaddexp(0, (a - b) / (2.0 if m in QUAD else 1.0))

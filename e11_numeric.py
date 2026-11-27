@@ -100,17 +100,10 @@ def _solve(M, b):
     except np.linalg.LinAlgError:
         return np.linalg.solve(_reg(M), b)
 
-def loggauss(r, S):
-    try:
-        sol = np.linalg.solve(S, r[..., None])[..., 0]
-    except np.linalg.LinAlgError:
-        # E6c emenda 3: só quando alguma matriz do lote é singular (geometria degenerada rara de tracklet);
-        # regularização mínima relativa à escala da diagonal; matrizes não singulares não mudam na prática
-        d = np.einsum("...ii->...i", S); eps = 1e-10 * np.maximum(np.abs(d).mean(-1), 1e-30)
-        S = S + eps[..., None, None] * np.eye(S.shape[-1])
-        sol = np.linalg.solve(S, r[..., None])[..., 0]
-    _, ld = np.linalg.slogdet(S)
-    return -0.5 * (np.sum(r * sol, -1) + ld + r.shape[-1] * np.log(2 * np.pi))
+# loggauss: batched Gaussian log-density with per-matrix validation (audit revision 3, R01-R02); see gauss_logpdf.py.
+# Valid (finite, positive-definite) matrices give bit-identical values to the original routine; SAFE_LOGGAUSS=0
+# restores the original routine, which is kept only to reproduce the archived runs.
+from gauss_logpdf import loggauss
 
 
 def msq(P):

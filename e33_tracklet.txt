@@ -1,0 +1,15 @@
+# e33_e6c_covariance_check.py | see run33.sh | sha256[:12] e11_numeric.py 36fbcf9746d7 gauss_logpdf.py 0970e7fc7af6 | CPU, one core per stream
+# LEO (events 0,8,9; two draws each):
+{"ev": "e17sel_leo.json", "eid": "0", "regime": "LEO", "meas": "tracklet", "k": 0, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 1.4627140000000003, "sec": 181}
+{"ev": "e17sel_leo.json", "eid": "0", "regime": "LEO", "meas": "tracklet", "k": 1, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 1.9922478, "sec": 177}
+{"ev": "e17sel_leo.json", "eid": "8", "regime": "LEO", "meas": "tracklet", "k": 0, "rel_diff_archive": 7.185188420127294e-05, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 8.911311, "sec": 188}
+{"ev": "e17sel_leo.json", "eid": "8", "regime": "LEO", "meas": "tracklet", "k": 1, "rel_diff_archive": 9.900000000007125e-06, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 1.514665, "sec": 165}
+{"ev": "e17sel_leo.json", "eid": "9", "regime": "LEO", "meas": "tracklet", "k": 0, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 15.858621999999999, "sec": 164}
+{"ev": "e17sel_leo.json", "eid": "9", "regime": "LEO", "meas": "tracklet", "k": 1, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 5.464055, "sec": 161}
+STAT {"calls": 132, "mats": 1141464, "nonfinite": 0, "nonpd": 0, "fallback": 0, "repaired": 0, "corr_cond_max": 4902518336.028921}
+# MEO (event 4, first draw; the stream was stopped at the time limit during the second draw, before its STAT line):
+{"ev": "e17sel_meo.json", "eid": "4", "regime": "MEO", "meas": "tracklet", "k": 0, "rel_diff_archive": 4.999999999866223e-07, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 0.11781400000000009, "sec": 4182}
+# QZSS (event 0, one draw):
+{"ev": "e17sel_qzss.json", "eid": "0", "regime": "IGSO", "meas": "tracklet", "k": 0, "rel_diff_archive": 0.032634316073031994, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 0.027239999999999043, "sec": 4355}
+STAT {"calls": 22, "mats": 190244, "nonfinite": 0, "nonpd": 0, "fallback": 0, "repaired": 0, "corr_cond_max": 63179855.575038776}
+STAT_NEW {"calls": 22, "matrices": 190244, "rejected_nonfinite": 0, "repaired_nonpd": 0, "asymmetric": 38}

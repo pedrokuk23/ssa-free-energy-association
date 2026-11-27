@@ -51,13 +51,43 @@ sensitivity analysis, uses the rescored `e17K3_*` rows (full-state rows identica
 
 The one-sided lower bound printed by these scripts (0.0265) is computed from the mean and interval already rounded to four
 decimals; computed from unrounded values it is 0.026479, reported in the paper as +0.026.
-The summaries round p-values to four decimals, so very small values appear as 0.0; the paper reports them as
-p < 0.001 (corrected E6c: one-sided t p = 2.9e-6; sign-flip Monte Carlo p below 1e-4 with 200 000 sign vectors).
+P-values of 0.001 or more are rounded to four decimals; smaller ones keep three significant digits (no output prints
+p = 0.0000). The sign-flip test is exact (b/2^k) for up to 20 satellites and otherwise uses 200 000 random sign vectors
+with the Monte Carlo estimate (b+1)/(N+1) (audit revision 3, R08). Corrected E6c: one-sided t p = 2.95e-6, sign-flip
+p = 1e-5; the paper reports both as p < 0.001.
 
 The tracklet calibration of E6c and the near-confuser check (F2) of `e17K2_*` were not repeated with the corrected
 scores (the rescoring stores neither the neighbours' own UCTs nor the F2 field); the paper reports them for full-state
 UCTs only. `e12K_summary.json` was recomputed locally from the three corrected tracklet chunks (the summary written on
 the server also counted the six superseded chunks).
+
+## Gaussian log-density with per-matrix validation (audit revision 3, 26 November 2026)
+
+`gauss_logpdf.py` replaces the `loggauss` routine of `e10_numeric.py` and `e11_numeric.py`. The original routine ignored
+the sign of `slogdet` (an indefinite matrix gave a finite, too large density) and, when one matrix of a batch was
+singular, added the same regularization to every matrix of the batch. The new routine checks each matrix: non-finite
+matrices (or residuals) give -inf; matrices whose correlation-scaled Cholesky factorization fails are repaired one by
+one (symmetrized, eigenvalues of the correlation matrix clipped at 1e-12 times the largest absolute eigenvalue);
+valid matrices are evaluated with the original arithmetic (LU solve and slogdet), so their values are bit-identical to
+the archived runs. Rejections and repairs are counted in `gauss_logpdf.STATS`. `SAFE_LOGGAUSS=0` restores the original
+routine for reproduction only. The frozen copies in `frozen_E6c/` are unchanged.
+
+    python test_gauss_logpdf.py      # valid, indefinite, non-finite and mixed batches; batch-composition and permutation invariance
+
+Two checks show that the archived results are not affected:
+
+    python e32_covariance_check.py . x 3,4,5,6,7,8 > e32_covariance_check.txt   # stress test, 48 scorings, six LEO objects (one run, ~3 min)
+    bash run33.sh                    # E6c production settings, real events, both UCT types: e33_*.txt (about 1 h per MEO/QZSS draw on one core)
+
+`e33_e6c_covariance_check.py` regenerates draws of `e17_scoreK3.py` with the E6c settings (K1 = 41, refine = False,
+ric_cov UCT covariances), checks them against the archived `e17K3_*` rows, and scores each draw with the original and
+the new routine, reporting the largest score difference, decision changes and the smallest score margin. The
+correlation-scaled condition numbers it reports (up to about 5e9) indicate potential sensitivity to floating-point
+errors; no uniform bound on the log-density error is claimed.
+Regenerated draws match the archived rows within 1e-4 (relative), except the QZSS tracklet draw, where two learned-prior
+mixture scores differ by 0.5 and 0.9 nat and all other methods are bit-identical (`e33_qzss_tracklet_per_method.txt`,
+from `ONLY_PROD=1`, which prints per-method scores and skips the second routine). The archive was computed on GPU and
+this check on CPU; both log-density routines agree exactly there, so the difference does not come from them.
 
 ## Git repository and Zenodo deposit
 

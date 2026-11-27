@@ -1,0 +1,15 @@
+# e33_e6c_covariance_check.py | see run33.sh | sha256[:12] e11_numeric.py 36fbcf9746d7 gauss_logpdf.py 0970e7fc7af6 | CPU, one core per stream
+# LEO (events 0,8,9; two draws each):
+{"ev": "e17sel_leo.json", "eid": "0", "regime": "LEO", "meas": "full", "k": 0, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 0.5986700999999999, "sec": 167}
+{"ev": "e17sel_leo.json", "eid": "0", "regime": "LEO", "meas": "full", "k": 1, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 2.0047689999999996, "sec": 149}
+{"ev": "e17sel_leo.json", "eid": "8", "regime": "LEO", "meas": "full", "k": 0, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 0.7954599999999914, "sec": 179}
+{"ev": "e17sel_leo.json", "eid": "8", "regime": "LEO", "meas": "full", "k": 1, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 2.870840000000001, "sec": 149}
+{"ev": "e17sel_leo.json", "eid": "9", "regime": "LEO", "meas": "full", "k": 0, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 32.048400000000015, "sec": 149}
+{"ev": "e17sel_leo.json", "eid": "9", "regime": "LEO", "meas": "full", "k": 1, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 71.42220000000003, "sec": 143}
+STAT {"calls": 72, "mats": 431988, "nonfinite": 0, "nonpd": 0, "fallback": 0, "repaired": 0, "corr_cond_max": 208336565.0168928}
+# MEO (event 4, first draw; the stream was stopped at the time limit during the second draw, before its STAT line):
+{"ev": "e17sel_meo.json", "eid": "4", "regime": "MEO", "meas": "full", "k": 0, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 0.916870000000003, "sec": 4185}
+# QZSS (event 0, one draw):
+{"ev": "e17sel_qzss.json", "eid": "0", "regime": "IGSO", "meas": "full", "k": 0, "rel_diff_archive": 0.0, "max_abs_diff_prod_vs_safe": 0.0, "decision_flips": [], "min_margin_learn_ctrlu": 96.35699999999997, "sec": 4367}
+STAT {"calls": 12, "mats": 71998, "nonfinite": 0, "nonpd": 0, "fallback": 0, "repaired": 0, "corr_cond_max": 254858578.05791348}
+STAT_NEW {"calls": 12, "matrices": 95614, "rejected_nonfinite": 0, "repaired_nonpd": 0, "asymmetric": 0}

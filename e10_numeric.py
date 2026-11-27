@@ -87,9 +87,8 @@ def prop7(X7, t0, t1):
     Y = integrate(X7[..., :6], X7[..., 6], t0, t1, DT)
     return np.concatenate([Y, X7[..., 6:7]], -1)
 
-def loggauss(r, S):
-    sol = np.linalg.solve(S, r[..., None])[..., 0]; _, ld = np.linalg.slogdet(S)
-    return -0.5 * (np.sum(r * sol, -1) + ld + r.shape[-1] * np.log(2 * np.pi))
+# loggauss: batched Gaussian log-density with per-matrix validation (audit revision 3, R01-R02); see gauss_logpdf.py.
+from gauss_logpdf import loggauss
 
 # ------------------------------------------------------------------ trilha de catálogo
 class Track:
